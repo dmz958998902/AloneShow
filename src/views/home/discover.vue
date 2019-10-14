@@ -18,6 +18,7 @@
     <a class="iconfont">&#xe618;</a>
 
   </div>
+<<<<<<< HEAD
   <component is="discoverrec" />
   </div>
 
@@ -65,3 +66,6 @@ export default {
     }
 }
 </style>
+=======
+</template>
+>>>>>>> origin/dai

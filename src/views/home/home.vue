@@ -20,6 +20,7 @@
     </div>
   </div>
 </template>
+<<<<<<< HEAD
 
 <style lang="scss">
 .nav {
@@ -79,3 +80,5 @@
   }
 }
 </style>
+=======
+>>>>>>> origin/dai

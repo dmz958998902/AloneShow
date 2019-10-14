@@ -35,6 +35,7 @@
     </div>
   </div>
 </template>
+<<<<<<< HEAD
 <style lang='scss'>
 @import '../../assets/styles/common/mixins.scss';
 .page-city {
@@ -122,3 +123,5 @@ export default {
   }
 }
 </script>
+=======
+>>>>>>> origin/dai
