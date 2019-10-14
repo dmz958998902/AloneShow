@@ -158,7 +158,7 @@
 
 <style lang="scss" scope>
 .myself_lw {
-  height: 100%;
+  height: 500px;
   overflow-y: auto;
   .navtitle {
     position: fixed;
