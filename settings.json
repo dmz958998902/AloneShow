@@ -1,0 +1,35 @@
+{
+  // 主题
+  "workbench.colorTheme": "One Dark Pro",
+  // 字体
+  "editor.fontSize": 18,
+  // 是否需要颜色选取器
+  "editor.colorDecorators": false,
+  // 是否需要保存时自动格式化
+  // "editor.formatOnSave": true,
+  // 一个tab键等于的空格数
+  "editor.tabSize": 2,
+  // 自动换行
+  "editor.wordWrap": "on",
+  // 窗口的缩放级别
+  "window.zoomLevel": 1,
+  // 文件保存时，是否需要在文件末尾添加一个最终空行
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  // 默认格式化程序设置
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+}
