@@ -20,12 +20,23 @@
             <li v-for="city in cityArr" :key="city">{{city}}</li>
           </ul>
         </div>
+        <div class="city-select" v-for="city in cityList" :key="city.py">
+          <p class="cityPy">{{city.py}}</p>
+          <ul>
+            <li v-for="cityItem in city.list" :key="cityItem.id">{{cityItem.name}}</li>
+          </ul>
+        </div>
       </div>
-      <div class="city-bar"></div>
+      <!-- <div class="city-bar">
+        <ul>
+          <li v-for="py in 10" :key="py">{{py}}</li>
+        </ul>
+      </div>-->
     </div>
   </div>
 </template>
 <style lang='scss'>
+@import '../../assets/styles/common/mixins.scss';
 .page-city {
   .van-nav-bar {
     .van-nav-bar__title {
@@ -41,6 +52,8 @@
     flex: 1;
     overflow-y: auto;
     font-size: 14px;
+    display: flex;
+    width: 100%;
     .city-item {
       p {
         height: 45px;
@@ -65,11 +78,25 @@
           }
         }
       }
+      .city-select {
+        .cityPy {
+          background: #eeeeee;
+        }
+        ul {
+          margin-left: 15px;
+          li {
+            height: 45px;
+            line-height: 45px;
+            @include border-bottom;
+          }
+        }
+      }
     }
   }
 }
 </style>
 <script>
+import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
   data() {
     return {
@@ -81,6 +108,17 @@ export default {
         ['南京', '武汉', '西安']
       ]
     }
+  },
+  computed: {
+    ...mapState('city', ['cities']),
+    ...mapGetters('city', ['cityList']),
+    ...mapGetters('city', ['cityPy'])
+  },
+  methods: {
+    ...mapActions('city', ['getCities'])
+  },
+  created() {
+    this.getCities()
   }
 }
 </script>
