@@ -7,20 +7,44 @@
     </div>
 
     <ul class="nav_bar">
-      <router-link tag="li" to="/">首页</router-link>
-      <router-link tag="li" to="/discover">发现</router-link>
-
-      <li>
-        <button>+</button>
-      </li>
-      <router-link tag="li" to="/activity">福利</router-link>
-      <router-link tag="li" to="/myself">我的</router-link>
+      <router-link tag="li" to="/home">
+        <p>
+          <i class="iconfont icon-shouye"></i>
+          <span>首页</span>
+        </p>
+      </router-link>
+      <router-link tag="li" to="/discover">
+        <i class="iconfont icon-faxian"></i>
+        <span>发现</span>
+      </router-link>
+      <router-link tag="li" to="/">
+        <img src="https://m.mydeershow.com/tab_home_more_icon.png" alt />
+      </router-link>
+      <router-link tag="li" to="/activity">
+        <i class="iconfont icon-fuli"></i>
+        <span>福利</span>
+      </router-link>
+      <router-link tag="li" to="/myself">
+        <i class="iconfont icon-ziyuan1"></i>
+        <span>我的</span>
+      </router-link>
     </ul>
   </div>
 </template>
 <script>
 export default {
-  name: 'home'
+  name: 'home',
+  data() {
+    return {
+      typeColor: 'home'
+    }
+  },
+  methods: {
+    changeAct(type) {
+      this.typeColor = type
+      console.log(type)
+    }
+  }
 }
 </script>
 
@@ -52,6 +76,21 @@ export default {
       flex: 1;
       text-align: center;
       align-items: center;
+      img {
+        width: 40px;
+        height: 40px;
+      }
+      span {
+        font-size: 12px;
+      }
+      i {
+        display: block;
+        font-size: 20px;
+        margin-bottom: 3px;
+      }
+      &.router-link-exact-active {
+        color: #e72e62;
+      }
     }
   }
 }

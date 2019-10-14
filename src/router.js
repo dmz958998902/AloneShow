@@ -25,58 +25,58 @@ export default new Router({
     {
       path: '/',
       component: Home,
-      children:[
+      children: [
         {
-          path:'home',
-          component:Homes
+          path: 'home',
+          component: Homes
         },
         {
-          path:'activity',
-          component:Activity
+          path: 'activity',
+          component: Activity
         },
         {
-          path:'discover',
-          component:Discover
+          path: 'discover',
+          component: Discover
         },
         {
-          path:'myself',
-          component:Myself
+          path: 'myself',
+          component: Myself
         },
         {
-          path:'',
-          redirect:'./home'
+          path: '',
+          redirect: 'home'
         }
       ]
     },
-   //城市路由配置
-   {
-     path:'/city',
-     component:City
-   },
-   //影片详情页路由配置
-   {
-     path:'/filmInfo',
-     component:FilmInfo
-   },
-   //影片列表页路由配置
-   {
-    path:'/filmList',
-    component:FilmList
-   },
-   //登录页面路由配置
-   {
-    path:'/login',
-    component:Login
-   },
-   //注册页路由配置
-   {
-     path:'/register',
-     component:Register
-   },
-   //搜索页面路由配置
-   {
-     path:'/search',
-     component:Search
-   }
+    //城市路由配置
+    {
+      path: '/city',
+      component: City
+    },
+    //影片详情页路由配置
+    {
+      path: '/filmInfo',
+      component: FilmInfo
+    },
+    //影片列表页路由配置
+    {
+      path: '/filmList',
+      component: FilmList
+    },
+    //登录页面路由配置
+    {
+      path: '/login',
+      component: Login
+    },
+    //注册页路由配置
+    {
+      path: '/register',
+      component: Register
+    },
+    //搜索页面路由配置
+    {
+      path: '/search',
+      component: Search
+    }
   ]
 })
