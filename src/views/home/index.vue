@@ -33,18 +33,7 @@
 </template>
 <script>
 export default {
-  name: 'home',
-  data() {
-    return {
-      typeColor: 'home'
-    }
-  },
-  methods: {
-    changeAct(type) {
-      this.typeColor = type
-      console.log(type)
-    }
-  }
+  name: 'home'
 }
 </script>
 
@@ -56,19 +45,17 @@ export default {
   display: flex;
   justify-content: center;
   flex-direction: column;
+  overflow: hidden;
   .content {
     flex: 1;
+    overflow-y: auto;
   }
   .nav_bar {
     @include border-top;
-    // list-style: none;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     height: 50px;
-    button {
-      width: 30px;
-      height: 30px;
-    }
     li {
       display: flex;
       flex-direction: column;

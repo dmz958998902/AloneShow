@@ -35,7 +35,6 @@
     </div>
   </div>
 </template>
-<<<<<<< HEAD
 <style lang='scss'>
 @import '../../assets/styles/common/mixins.scss';
 .page-city {
@@ -99,7 +98,7 @@
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       hotCity: [
         ['上海', '广州', '北京'],
@@ -118,10 +117,8 @@ export default {
   methods: {
     ...mapActions('city', ['getCities'])
   },
-  created() {
+  created () {
     this.getCities()
   }
 }
 </script>
-=======
->>>>>>> origin/dai

@@ -38,17 +38,17 @@
 </template>
 <script>
 export default {
-name: "activity",
-data() {
-  return {
-    curtype: 'live'
+  name: 'activity',
+  data () {
+    return {
+      curtype: 'live'
+    }
+  },
+  methods: {
+    changeType (type) {
+      this.curtype = type
+    }
   }
-},
-methods: {
-  changeType(type){
-    this.curtype = type
-  }
-},
 
 }
 </script>

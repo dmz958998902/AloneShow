@@ -155,7 +155,6 @@
     </div>
   </div>
 </template>
-<<<<<<< HEAD
 
 <style lang="scss" scope>
 .myself_lw {
@@ -380,5 +379,3 @@
   }
 }
 </style>
-=======
->>>>>>> origin/dai

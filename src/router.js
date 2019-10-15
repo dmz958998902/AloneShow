@@ -16,7 +16,7 @@ import FilmList from './views/filmList/index.vue'
 import Login from './views/login/index.vue'
 import Register from './views/register/index.vue'
 import Search from './views/search/index.vue'
-//引入三级路由
+// 引入三级路由
 import Crazy from './components/crazy.vue'
 import Live from './components/live.vue'
 import Child from './components/child.vue'
