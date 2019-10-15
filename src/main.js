@@ -3,10 +3,13 @@ import App from './App.vue'
 import router from './router'
 import store from './store/store'
 
-import { NavBar, Search, Toast } from 'vant'
+import { NavBar, Search, Toast, DropdownMenu, DropdownItem } from 'vant'
+
 Vue.use(NavBar)
   .use(Search)
   .use(Toast)
+  .use(DropdownMenu)
+  .use(DropdownItem)
 
 Vue.config.productionTip = false
 
