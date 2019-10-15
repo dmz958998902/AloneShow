@@ -3,7 +3,7 @@
   <div>
     <address_nav title="编辑地址" right-text="保存"></address_nav>
     <van-address-edit
-      :area-list="this.areaList"
+      :area-list="areaList"
       show-postal
       show-delete
       show-set-default
@@ -91,8 +91,7 @@ export default {
     //     this.fn1(response)
     //     console.log(response)
     //   })
-    console.log('aaa')
-    console.log(this.getCities())
+    this.getCities()
   }
 }
 </script>

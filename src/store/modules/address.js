@@ -3,17 +3,18 @@ import axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    areaList: {
-      province_list: {},
-      city_list: {},
-      county_list: {}
-    }
+    areaList: {}
   },
   getters: {},
   mutations: {
     fn1(state, arr) {
       //拿到全部数据
       let array1 = arr
+      state.areaList = {
+        province_list: {},
+        city_list: {},
+        county_list: {}
+      }
       //获取省数据
       array1.forEach(item => {
         state.areaList.province_list[item.provinceCode] = item.provinceName

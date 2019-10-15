@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../../../src/assets/styles/common/mixins.scss';
 .my_address {
   height: 100%;
