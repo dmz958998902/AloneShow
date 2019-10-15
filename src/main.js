@@ -10,7 +10,9 @@ import {
   Swipe,
   SwipeItem,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  AddressEdit,
+  Area
 } from 'vant'
 Vue.use(NavBar)
   .use(Search)
@@ -19,6 +21,8 @@ Vue.use(NavBar)
   .use(SwipeItem)
   .use(DropdownMenu)
   .use(DropdownItem)
+  .use(AddressEdit)
+  .use(Area)
 
 Vue.config.productionTip = false
 

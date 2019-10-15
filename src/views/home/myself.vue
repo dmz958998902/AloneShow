@@ -156,7 +156,7 @@
   </div>
 </template>
 
-<style lang="scss" scope>
+<style lang="scss" scoped>
 .myself_lw {
   height: 500px;
   overflow-y: auto;
