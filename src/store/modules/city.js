@@ -6,7 +6,7 @@ export default {
     cities: []
   },
   getters: {
-    cityList(state) {
+    cityList (state) {
       let res = []
       state.cities.forEach(item => {
         let py = item.sorts
@@ -25,19 +25,19 @@ export default {
         return a.py.charCodeAt() - b.py.charCodeAt()
       })
     },
-    cityPy(getters) {
+    cityPy (getters) {
       // return getters.cityList.map(item => {
       //   return item.py
       // })
     }
   },
   mutations: {
-    setCities(state, payload) {
+    setCities (state, payload) {
       state.cities = payload
     }
   },
   actions: {
-    getCities({ commit }, payload) {
+    getCities ({ commit }, payload) {
       axios
         .get(
           'https://api.mydeershow.com/mobile/app/city/list?source=mobile&cityName=%E4%B8%8A%E6%B5%B7&citySituationName=%E4%B8%8A%E6%B5%B7&encrypt=alZBNDE1NzEwNTgwOTUxNTdKeXFkdw%3D%3D&citySituationId=37&vno=3.2.3'
