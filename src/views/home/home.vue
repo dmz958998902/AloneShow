@@ -20,8 +20,6 @@
     </div>
   </div>
 </template>
-<<<<<<< HEAD
-
 <style lang="scss">
 .nav {
   display: flex;
@@ -80,5 +78,3 @@
   }
 }
 </style>
-=======
->>>>>>> origin/dai
