@@ -4,59 +4,89 @@
       <div class="back">
         <i class="iconfont icon-xiangzuo" @click="goback"></i>
       </div>
-      <van-search v-model="value" placeholder="请输入搜索关键词" show-action shape="round" @focus="fn">
+      <van-search v-model="value" placeholder="请输入搜索关键词" show-action shape="round">
         <div slot="action" class="search">搜索</div>
       </van-search>
     </div>
+    <div class="gap"></div>
     <div class="kind">
-      <van-dropdown-menu active-color="#e72e62" :overlay="false" ref="box">
-        <van-dropdown-item v-model="value1" :options="option1" />
-        <van-dropdown-item v-model="value2" :options="option2" />
-      </van-dropdown-menu>
+      <ul>
+        <li>
+          全部类别
+          <img
+            src="https://m.mydeershow.com/img_s_xaila.png"
+            alt
+            @click="fn1()"
+            :class="{'active':onclick1}"
+          />
+        </li>
+        <li>
+          全国
+          <img
+            src="https://m.mydeershow.com/img_s_xaila.png"
+            alt
+            @click="fn2()"
+            :class="{'active':onclick2}"
+          />
+        </li>
+      </ul>
     </div>
+    <div class="gap"></div>
     <div class="nomore" v-if="isShow">没有更多</div>
+    <div class="mask">
+      <CityList v-if="onclick2"></CityList>
+      <Classrify :list="searchBar" v-if="onclick1"></Classrify>
+    </div>
   </div>
 </template>
 <script>
+import Classrify from './components/classrify'
+import CityList from '../../components/citylist'
+import { mapActions, mapState } from 'vuex'
 export default {
+  components: {
+    CityList,
+    Classrify
+  },
   data() {
     return {
       value: '',
       isShow: false,
-      value1: 0,
-      value2: 'a',
-      option1: [
-        { text: '全部分类', value: 0 },
-        { text: '热血Live', value: 1 },
-        { text: '疯狂舞台', value: 2 },
-        { text: '欢乐萱年', value: 2 },
-        { text: '独角秀应援', value: 2 }
-      ],
-      option2: [
-        { text: '默认排序', value: 'a' },
-        { text: '好评排序', value: 'b' },
-        { text: '销量排序', value: 'c' }
-      ]
+      onclick1: false,
+      onclick2: false,
+      curType: 'classrify' //设置点击的是当前点击的是全部分类还是城市，默认的是全部分类
     }
   },
+  computed: {
+    ...mapState('search', ['searchBar'])
+  },
   methods: {
-    fn() {
-      this.value.focus()
-    },
+    ...mapActions('search', ['getSearchBar']),
+    // 点击向左返回
     goback() {
       this.$router.back()
     },
     clickItem() {
       console.log(this.$refs.box)
+    },
+    fn1() {
+      this.onclick1 = !this.onclick1
+      this.onclick2 = false
+    },
+    fn2() {
+      this.onclick2 = !this.onclick2
+      this.onclick1 = false
     }
   },
   created() {
-    this.clickItem()
+    this.clickItem(), this.getSearchBar()
   }
 }
 </script>
 <style lang="scss" scoped>
+@import '../../assets/styles/common/mixins.scss';
 .page-search {
+  color: #666666;
   .search-bar {
     display: flex;
     .back {
@@ -69,6 +99,33 @@ export default {
     }
     .search {
       color: #e72e62;
+    }
+  }
+  .gap {
+    height: 2px;
+    background: transparent;
+  }
+  .kind {
+    ul {
+      display: flex;
+      font-size: 14px;
+      padding-left: 20px;
+      @include border-bottom;
+      height: 45px;
+      line-height: 45px;
+      li:nth-child(1) {
+        margin-right: 20px;
+      }
+      li {
+        img {
+          height: 5px;
+          width: 7px;
+        }
+        .active {
+          transform: rotate(180deg);
+          transition: all 0.5s;
+        }
+      }
     }
   }
   .nomore {

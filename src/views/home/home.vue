@@ -112,6 +112,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios'
 export default {
   data() {
     return {
@@ -161,6 +162,7 @@ export default {
 .nav {
   height: 42px;
   padding: 0 15px 0 15px;
+  display: flex;
   .nav-left {
     display: flex;
     align-items: center;
