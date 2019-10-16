@@ -26,7 +26,7 @@ import Aid from './components/aid.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     // 主页路由配置
     {
@@ -120,3 +120,4 @@ export default new Router({
     }
   ]
 })
+export default router

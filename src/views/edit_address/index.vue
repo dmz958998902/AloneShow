@@ -1,15 +1,18 @@
 <!-- 新增收货地址 一级路由 -->
 <template>
   <div>
-    <address_nav title="编辑地址" right-text="保存"></address_nav>
+    <address_nav title="编辑地址" right-text="保存" @leftEvent="onleftSaves" @rightEvent="onSaves"></address_nav>
     <van-address-edit
       :area-list="areaList"
+      :address-info="curUpdate"
+      :area-columns-placeholder="curSelectCity"
       show-postal
       show-delete
       show-set-default
       show-search-result
       :search-result="searchResult"
       @save="onSave"
+      @change-default="changeDefault"
       @delete="onDelete"
       @change-detail="onChangeDetail"
     />
@@ -18,19 +21,15 @@
 
 <script>
 import address_nav from '../../components/address_nav'
-// import areaListss from '../../assets/address'
-import { mapActions, mapState } from 'vuex'
 import axios from 'axios'
+import { mapActions, mapState } from 'vuex'
 export default {
   data() {
     return {
-      // areaList: {
-      //   province_list: {},
-      //   city_list: {},
-      //   county_list: {}
-      // },
-
-      searchResult: []
+      isDefault: false,
+      searchResult: [],
+      curUpdate: {},
+      curSelectCity: ['请选择地址']
     }
   },
 
@@ -45,52 +44,104 @@ export default {
 
   methods: {
     ...mapActions('address', ['getCities']),
-    onSave() {
-      Toast('save')
+    //发送新增地址的请求
+    addAddress(data) {
+      axios
+        .post(
+          'https://api.mydeershow.com/mobile/app/address/create',
+          {
+            source: 'mobile',
+            cityName: '全国',
+            citySituationName: '全国',
+            encrypt: 'b1ZhMzE1NzExOTIzNTkyNzVQZDZwRg==',
+            citySituationId: '-1',
+            accessToken: 'BC1FF20400BAC1F5B7C86D43A46853C9',
+            vno: '3.2.3',
+            name: data.name,
+            mobile: data.tel,
+            province: data.province,
+            city: data.city,
+            district: data.county,
+            address: data.addressDetail,
+            default: this.isDefault
+          },
+          {
+            transformRequest(data) {
+              let arr = []
+              for (let key in data) {
+                arr.push(`${key}=${data[key]}`)
+              }
+              return arr.join('&')
+            }
+          }
+        )
+        .then(responses => {
+          if (responses.data.retCode === '0') {
+            this.$router.push('./address_list')
+          }
+        })
+    },
+    //发送修改地址的请求
+    //登录设置cookie
+    setCookie(cname, cvalue, exdays) {
+      var d = new Date()
+      d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000)
+      var expires = 'expires=' + d.toUTCString()
+      document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
+    },
+
+    onSave(data) {
+      //点击保存的时候发送请求 把用户保存的地址存到数据库
+      if (this.$route.query.name) {
+        this.updateAddress(data)
+      } else {
+        this.addAddress(data)
+      }
+    },
+
+    //点击设置为默认地址的时候触发的事件
+    changeDefault(value) {
+      this.isDefault = value
+    },
+
+    onleftSaves() {
+      this.$router.push('address_list')
+    },
+
+    onSaves() {
+      alert('此功能不可用！')
     },
     onDelete() {
-      Toast('delete')
+      //点击删除->确定以后返回到页面
+      this.$router.back()
     },
     onChangeDetail(val) {
       if (val) {
         this.searchResult = [
           {
-            name: '黄龙万科中心',
-            address: '杭州市西湖区'
+            name: '江西省',
+            address: '吉安市吉州区'
           }
         ]
       } else {
         this.searchResult = []
       }
+    },
+    //获取url传递过来的参数 放到页面上面去
+    getcurUpdate() {
+      this.curUpdate.name = this.$route.query.name
+      this.curUpdate.tel = this.$route.query.mobile
+      this.curUpdate.province = this.$route.query.province
+      this.curUpdate.city = this.$route.query.city
+      this.curUpdate.county = this.$route.query.district
+      this.curUpdate.addressDetail = this.$route.query.address
+      this.curUpdate.areaCode = this.$route.query.user_id + ''
+      this.curUpdate.isDefault = this.$route.query.isDefault
+      this.curUpdate.postalCode = this.$route.query.id
     }
-
-    // fn1(arr) {
-    //   let array1 = arr.data.data
-    //   // let array2 = arr.data.data.mallCityList
-    //   // console.log(array2)
-    //   array1.forEach(item => {
-    //     this.areaList.province_list[item.provinceCode] = item.provinceName
-    //     item.mallCityList.forEach(items => {
-    //       this.areaList.city_list[items.cityCode] = items.cityName
-    //       items.mallAreaList.forEach(itemss => {
-    //         this.areaList.county_list[itemss.areaCode] = itemss.areaName
-    //       })
-    //     })
-    //   })
-    //   console.log(this.areaList.province_list)
-    //   console.log(this.areaList.city_list)
-    //   console.log(this.areaList.county_list)
-    // }
   },
   created() {
-    // axios
-    //   .get(
-    //     'https://api.mydeershow.com/mobile/app/city/citylist?source=mobile&cityName=%E5%85%A8%E5%9B%BD&citySituationName=%E5%85%A8%E5%9B%BD&encrypt=amhDRDE1NzExMjIyNDc3OTh3YmZrdg%3D%3D&citySituationId=-1&accessToken=8C17D38E71423CCAAB0C91FA29F545D3&vno=3.2.3'
-    //   )
-    //   .then(response => {
-    //     this.fn1(response)
-    //     console.log(response)
-    //   })
+    this.getcurUpdate()
     this.getCities()
   }
 }

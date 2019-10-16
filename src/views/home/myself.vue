@@ -137,11 +137,11 @@
             </a>
           </li>
           <li>
-            <a href>
+            <router-link to="/address_list">
               <i class="iconfont icon-weizhi"></i>
               <span>地址管理</span>
               <b class="iconfont icon-icon--"></b>
-            </a>
+            </router-link>
           </li>
           <li>
             <a href>
