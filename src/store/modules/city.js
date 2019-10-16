@@ -32,7 +32,7 @@ export default {
     }
   },
   actions: {
-    getCities({ commit }, payload) {
+    getCities ({ commit }, payload) {
       Toast.loading({
         message: '加载中...'
       })

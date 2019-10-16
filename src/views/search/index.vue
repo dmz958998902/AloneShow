@@ -19,7 +19,7 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       value: '',
       isShow: false,
@@ -40,17 +40,17 @@ export default {
     }
   },
   methods: {
-    fn() {
+    fn () {
       this.value.focus()
     },
-    goback() {
+    goback () {
       this.$router.back()
     },
-    clickItem() {
+    clickItem () {
       console.log(this.$refs.box)
     }
   },
-  created() {
+  created () {
     this.clickItem()
   }
 }

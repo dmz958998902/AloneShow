@@ -12,7 +12,9 @@ import {
   DropdownMenu,
   DropdownItem,
   AddressEdit,
-  Area
+  Area,
+  Tab,
+  Tabs
 } from 'vant'
 Vue.use(NavBar)
   .use(Search)
@@ -23,6 +25,8 @@ Vue.use(NavBar)
   .use(DropdownItem)
   .use(AddressEdit)
   .use(Area)
+  .use(Tab)
+  .use(Tabs)
 
 Vue.config.productionTip = false
 

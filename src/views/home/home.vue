@@ -98,32 +98,78 @@
         <img src="https://m.mydeershow.com/home_notice_enter.png" alt />
       </router-link>
     </div>
-    <div class="film">
-      <van-swipe :loop="false" :width="100" :show-indicators="false">
-        <van-swipe-item v-for="item in filmList" :key="item.movieId">
-          <router-link class="film-banner" to="/fimlInfo">
-            <img :src="item.moviePoster" alt />
-            <span>{{item.showDate}}</span>
-            <p>{{item.movieName}}</p>
-          </router-link>
-        </van-swipe-item>
-      </van-swipe>
+    <FilmList :filmList="filmList" />
+    <div class="choseBar">
+      <van-tabs
+        v-model="active"
+        title-active-color="red"
+        animate
+        style="width:262px;margin-left:15px;"
+      >
+        <van-tab title="最新">内容 1</van-tab>
+        <van-tab title="热门">内容 2</van-tab>
+        <van-tab title="约电影">内容 3</van-tab>
+        <van-tab title="约演出">内容 4</van-tab>
+        <van-tab title="约运动">内容 4</van-tab>
+        <van-tab title="约旅游">内容 4</van-tab>
+        <van-tab title="约公益">内容 4</van-tab>
+        <van-tab title="约玩乐">内容 4</van-tab>
+        <van-tab title="约游戏">内容 4</van-tab>
+        <van-tab title="约吃饭">内容 4</van-tab>
+        <van-tab title="自由约">内容 4</van-tab>
+      </van-tabs>
+      <div class="chose">
+        <i>筛选</i>
+        <span class="iconfont icon-xiangxia"></span>
+      </div>
     </div>
+    <div style="width:100%;height:200px;background:white;"></div>
   </div>
 </template>
 <script>
+import axios from 'axios'
+import FilmList from '../../components/movie'
 export default {
   data() {
     return {
       arr: [],
       headlineArr: [],
       filmList: [],
-      types: 'NowPlaying'
+      types: 'NowPlaying',
+      active: 1
     }
+  },
+  components: {
+    FilmList
   },
   methods: {
     getType(type) {
       this.types = type
+      if (type === 'NowPlaying') {
+        this.filmList = []
+        axios
+          .get(
+            'https://api.mydeershow.com/mobile/app/movieHome/hotMovie?source=mobile&cityName=%E6%B7%B1%E5%9C%B3&citySituationName=%E6%B7%B1%E5%9C%B3&encrypt=NVBwTDE1NzExNDIwNjI4MzVCMU5IVg%3D%3D&citySituationId=47&vno=3.2.3'
+          )
+          .then(response => {
+            let result = response.data.data
+            console.log(result)
+            this.filmList = result
+          })
+      }
+
+      if (type === 'ComePlaying') {
+        this.filmList = []
+        axios
+          .get(
+            'https://api.mydeershow.com/mobile/app/movieHome/otherMovie?source=mobile&cityName=%E5%85%A8%E5%9B%BD&citySituationName=%E5%85%A8%E5%9B%BD&encrypt=ZDlzRzE1NzEyMDgzMTExNTBtcDlDWA%3D%3D&citySituationId=-1&vno=3.2.3'
+          )
+          .then(response => {
+            let result = response.data.data
+            console.log(result)
+            this.filmList = result
+          })
+      }
     }
   },
   created() {
@@ -145,20 +191,18 @@ export default {
         // console.log(result)
         this.headlineArr = result
       })
-    axios
-      .get(
-        'https://api.mydeershow.com/mobile/app/movieHome/hotMovie?source=mobile&cityName=%E6%B7%B1%E5%9C%B3&citySituationName=%E6%B7%B1%E5%9C%B3&encrypt=NVBwTDE1NzExNDIwNjI4MzVCMU5IVg%3D%3D&citySituationId=47&vno=3.2.3'
-      )
-      .then(response => {
-        let result = response.data.data
-        console.log(result)
-        this.filmList = result
-      })
+
+    this.getType(this.types)
   }
 }
 </script>
 <style lang="scss">
 .nav {
+  position: fixed;
+  top: 0;
+  z-index: 999;
+  background: #ffffff;
+  display: flex;
   height: 42px;
   padding: 0 15px 0 15px;
   .nav-left {
@@ -214,6 +258,7 @@ export default {
   }
 }
 .banner {
+  margin-top: 42px;
   width: 100%;
   height: 115px;
   .ban {
@@ -297,31 +342,23 @@ export default {
     }
   }
 }
-.film {
-  margin-left: 15px;
-  .film-banner {
-    position: relative;
+.choseBar {
+  display: flex;
+  .chose {
+    width: 50px;
+    height: 40px;
+    margin-left: 35px;
     display: flex;
-    flex-direction: column;
-    img {
-      width: 91px;
-      height: 131px;
-      border-radius: 3px;
+    align-items: center;
+    i {
+      color: #333333;
+      font-size: 14px;
+      display: block;
+      margin-right: 5px;
     }
     span {
+      color: 20px;
       display: block;
-      width: 90px;
-      font-size: 12px;
-      padding: 5px 0;
-      position: absolute;
-      top: 110px;
-      color: #ffffff;
-      text-align: center;
-    }
-    p {
-      font-size: 14px;
-      color: #343434;
-      margin: 10px 0;
     }
   }
 }

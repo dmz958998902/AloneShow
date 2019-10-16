@@ -1,34 +1,37 @@
 <template>
-  <div class="page-home">
-    <!-- 一级路由 首页 -->
+  <div>
+    <div class="page-home">
+      <!-- 一级路由 首页 -->
 
-    <div class="content">
       <router-view></router-view>
-    </div>
 
-    <ul class="nav_bar">
-      <router-link tag="li" to="/home">
-        <p>
-          <i class="iconfont icon-shouye"></i>
-          <span>首页</span>
-        </p>
-      </router-link>
-      <router-link tag="li" to="/discover">
-        <i class="iconfont icon-faxian"></i>
-        <span>发现</span>
-      </router-link>
-      <router-link tag="li" to="/">
-        <img src="https://m.mydeershow.com/tab_home_more_icon.png" alt />
-      </router-link>
-      <router-link tag="li" to="/activity">
-        <i class="iconfont icon-fuli"></i>
-        <span>福利</span>
-      </router-link>
-      <router-link tag="li" to="/myself">
-        <i class="iconfont icon-ziyuan1"></i>
-        <span>我的</span>
-      </router-link>
-    </ul>
+      <ul class="nav_bar">
+        <router-link tag="li" to="/home">
+          <p>
+            <i class="iconfont icon-shouye"></i>
+            <span>首页</span>
+          </p>
+        </router-link>
+        <router-link tag="li" to="/discover">
+          <i class="iconfont icon-faxian"></i>
+          <span>发现</span>
+        </router-link>
+        <router-link tag="li" to="/">
+          <img src="https://m.mydeershow.com/tab_home_more_icon.png" alt />
+        </router-link>
+        <router-link tag="li" to="/activity">
+          <i class="iconfont icon-fuli"></i>
+          <span>福利</span>
+        </router-link>
+        <router-link tag="li" to="/myself">
+          <i class="iconfont icon-ziyuan1"></i>
+          <span>我的</span>
+        </router-link>
+      </ul>
+    </div>
+    <div class="gif">
+      <img src="https://m.mydeershow.com/pactSend.gif" alt />
+    </div>
   </div>
 </template>
 <script>
@@ -43,42 +46,57 @@ export default {
 .page-home {
   height: 100%;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   overflow: hidden;
-  .content {
+  > div:first-child {
     flex: 1;
     overflow-y: auto;
   }
   .nav_bar {
     @include border-top;
     width: 100%;
+    position: fixed;
+    bottom: 0;
     display: flex;
-    // justify-content: space-between;
     height: 50px;
+    background: #ffffff;
+    z-index: 100;
     li {
       display: flex;
       flex-direction: column;
       justify-content: center;
+      align-items: center;
+      height: 50px;
       flex: 1;
       text-align: center;
-      align-items: center;
       img {
         width: 40px;
         height: 40px;
       }
       span {
+        display: block;
+        margin-top: 3px;
         font-size: 12px;
       }
       i {
-        display: block;
         font-size: 20px;
-        margin-bottom: 3px;
       }
       &.router-link-exact-active {
         color: #e72e62;
       }
     }
+  }
+}
+.gif {
+  width: 115px;
+  height: 80px;
+  position: fixed;
+  left: 50%;
+  margin-left: -57px;
+  bottom: 40px;
+  z-index: 100;
+  img {
+    width: 100%;
   }
 }
 </style>
