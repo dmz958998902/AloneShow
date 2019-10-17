@@ -1,6 +1,7 @@
 <!-- 二级路由 福利页面 -->
 <template>
   <div class="activity">
+    <div class="a">
     <div class="h_title">
       <div class="h_andress">
         <span>深圳</span>
@@ -17,51 +18,69 @@
 
     <div class="screenbox">
       <ul>
-        <router-link to="/activity/0" tag="li" >热血live</router-link>
-        <router-link to="/activity/1" tag="li" >疯狂舞台</router-link>
-        <router-link to="/activity/2" tag="li" >欢乐童年</router-link>
-        <router-link to="/activity/3" tag="li" >独角秀应援</router-link>
-        <i class="iconfont icon-xiangxia" ></i>
+         <router-link v-for="(tit, index) in titleList" :class="{'router-link-active': index === 0 && $route.path === '/activity' }" :key="index"  tag="li" :to="`/activity/${index}`">{{ tit }}</router-link>
+        <i class="iconfont icon-xiangxia"></i>
       </ul>
-      <div class="active-line">
-        <span></span>
-      </div>
-      <router-view></router-view>
     </div>
-    <!-- <div class="content">
-      <ul>
-        <li></li>
-      </ul>
-    </div> -->
-    <!-- <router-view></router-view> -->
+    </div>
+    <!-- <div style="height:200px"></div> -->
+   <activityList></activityList>
   </div>
 </template>
 <script>
+import activityList from  "./../../components/activityList"
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'activity',
+  components: {
+    activityList
+  },
   data () {
     return {
       curtype: 'live'
+      // titleList: this.titleList
     }
+  },
+  computed: {
+    ...mapState('activity', ['titleList'])
   },
   methods: {
     changeType (type) {
       this.curtype = type
-    }
+    },
+    ...mapActions('activity', ['getTitleList'])
+  },
+  created () {
+    this.getTitleList()
   }
-
 }
 </script>
 <style lang="scss">
+@import "./../../assets/styles/base.scss";
+@import '../../assets/styles/common/mixins.scss';
  .activity{
-   display: flex;
-   flex-direction: column;
-   .h_title{
+    display: flex;
+    flex-direction: column;
+    background-color: #f6f8f8;
+    padding-top: 36px;
+    height: auto;
+    width: 100%;
+    overflow: hidden;
+    // padding-bottom: 42px;
+    .a{
+     position: fixed;
+     top: 0;
+     left: 0;
+     width:100%;
+    background-color: #fff;
+    overflow: hidden;
+    z-index: 3;
+    .h_title{
+     width: 100%;
+     z-index: 2;
      display: flex;
      height:36px;
      align-items: center;
-     width: 100%;
-     background-color: #fff;
      .h_andress{
       font-size: 13px;
       color:#333;
@@ -74,11 +93,12 @@ export default {
      .h_search{
        flex:1;
        font-size: 14px;
-       background:#f8f6f6;
        height:28px;
        line-height: 28px;
        text-align: center;
        border-radius: 28px;
+       background-color: #f8f6f6;
+       position: relative;
        a{
           text-decoration: none;
           color:#999;
@@ -91,15 +111,21 @@ export default {
        justify-content: space-around;
        height:38px;
        align-items: center;
+       position: relative;
       li{
          text-decoration: none;
          color:#999;
          font-size:13px;
          &.router-link-active{
            color:#e72e62;
+           @include aa
          }
        }
      }
    }
+    }
  }
+ .activity::-webkit-scrollbar{
+           display: none;
+   }
 </style>

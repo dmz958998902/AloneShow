@@ -20,7 +20,7 @@
       <router-link tag="li" to="/">
         <img src="https://m.mydeershow.com/tab_home_more_icon.png" alt />
       </router-link>
-      <router-link tag="li" to="/activity">
+      <router-link tag="li" :to="`/activity`">
         <i class="iconfont icon-fuli"></i>
         <span>福利</span>
       </router-link>
@@ -33,7 +33,18 @@
 </template>
 <script>
 export default {
-  name: 'home'
+  name: 'home',
+  data () {
+    return {
+      typeColor: 'home'
+    }
+  },
+  methods: {
+    changeAct (type) {
+      this.typeColor = type
+      console.log(type)
+    }
+  }
 }
 </script>
 
@@ -45,17 +56,25 @@ export default {
   display: flex;
   justify-content: center;
   flex-direction: column;
-  overflow: hidden;
+  overflow:hidden;
   .content {
     flex: 1;
     overflow-y: auto;
   }
   .nav_bar {
     @include border-top;
-    width: 100%;
+    // list-style: none;
+    position: fixed;
+    bottom: 0;
     display: flex;
-    // justify-content: space-between;
-    height: 50px;
+    justify-content: space-between;
+    height: 42px;
+    background: #ffffff;
+    width: 100%;
+    button {
+      width: 30px;
+      height: 30px;
+    }
     li {
       display: flex;
       flex-direction: column;

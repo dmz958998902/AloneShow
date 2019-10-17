@@ -3,26 +3,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store/store'
 
-import {
-  NavBar,
-  Search,
-  Toast,
-  Swipe,
-  SwipeItem,
-  DropdownMenu,
-  DropdownItem,
-  AddressEdit,
-  Area
-} from 'vant'
+import { NavBar, Search, Toast, CountDown } from 'vant'
 Vue.use(NavBar)
   .use(Search)
   .use(Toast)
-  .use(Swipe)
-  .use(SwipeItem)
-  .use(DropdownMenu)
-  .use(DropdownItem)
-  .use(AddressEdit)
-  .use(Area)
+  .use(CountDown)
+
 
 Vue.config.productionTip = false
 
