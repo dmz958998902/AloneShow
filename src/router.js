@@ -16,9 +16,7 @@ import FilmList from './views/filmList/index.vue'
 import Login from './views/login/index.vue'
 import Register from './views/register/index.vue'
 import Search from './views/search/index.vue'
-import EdirAddress from './views/edit_address/index.vue'
-import AddAddress from './views/add_address/index.vue'
-//引入三级路由
+// 引入三级路由
 import Crazy from './components/crazy.vue'
 import Live from './components/live.vue'
 import Child from './components/child.vue'
@@ -26,7 +24,7 @@ import Aid from './components/aid.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     // 主页路由配置
     {
@@ -66,7 +64,10 @@ export default new Router({
         },
         {
           path: 'discover',
-          component: Discover
+          component: Discover,
+          // meta: {
+          //   requireAuth: true
+          // }
         },
         {
           path: 'myself',
@@ -107,16 +108,26 @@ export default new Router({
     {
       path: '/search',
       component: Search
-    },
-    //新增地址页面路由配置
-    {
-      path: '/address_edit',
-      component: EdirAddress
-    },
-    //管理我的地址页面路由配置
-    {
-      path: '/address_list',
-      component: AddAddress
     }
   ]
 })
+// router.beforeEach((to, from, next) => {
+//   if (to.meta.requireAuth) {     // 判断该路由是否需要登录权限
+//      let token = localStorage.getItem('token')
+//       if (token) {              // 通过localStorage.getItem()获取当前的 token 是否存在
+//           next('/login') // 要去登录
+//       }
+//       else {
+//           next({
+//               path: '/login',
+//               query: {
+//                 redirect: to.fullPath    // 将跳转的路由path作为参数，登录成功后跳转到该路由
+//               }
+//           })
+//       }
+//   }
+//   else {
+//       next()
+//   }
+// })
+export default router

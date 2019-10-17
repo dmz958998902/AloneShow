@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import CityModule from './modules/city'
-import AddressModule from './modules/address'
+import DiscoverModule from './modules/discover'
 
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
     city: CityModule,
-    address: AddressModule
+    discover:DiscoverModule
   }
 })
 export default store

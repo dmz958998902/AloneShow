@@ -155,8 +155,9 @@
     </div>
   </div>
 </template>
+<<<<<<< HEAD
 
-<style lang="scss" scoped>
+<style lang="scss" scope>
 .myself_lw {
   height: 500px;
   overflow-y: auto;
@@ -379,3 +380,5 @@
   }
 }
 </style>
+=======
+>>>>>>> origin/dai
