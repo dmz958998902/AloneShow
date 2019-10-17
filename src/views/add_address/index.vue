@@ -20,9 +20,7 @@
               class="content_address"
             >{{ item.province }}{{ item.city }}{{ item.district }}{{ item.address }}</div>
           </div>
-          <!-- <router-link to="/address_edit"> -->
           <div class="content_list_detail" @click="handleEdit(index)">编辑</div>
-          <!-- </router-link> -->
         </div>
       </li>
     </ul>
