@@ -169,10 +169,10 @@ export default {
   },
   methods: {
     ...mapActions('city', ['getCities']),
-    goBack() {
+    goBack () {
       this.$router.back()
     },
-    location(curPy) {
+    location (curPy) {
       this.curPy = curPy
       this.curBu = curPy
       setTimeout(() => {

@@ -45,7 +45,7 @@ export default {
   methods: {
     changeType(type) {
       this.curType = type
-      console.log(type)
+      this.$emit('changeKind', type)
     }
   },
   created() {}

@@ -114,7 +114,7 @@
 <script>
 import axios from 'axios'
 export default {
-  data() {
+  data () {
     return {
       arr: [],
       headlineArr: [],
@@ -123,11 +123,11 @@ export default {
     }
   },
   methods: {
-    getType(type) {
+    getType (type) {
       this.types = type
     }
   },
-  created() {
+  created () {
     axios
       .get(
         'https://api.mydeershow.com/mobile/app/sowing/list?source=mobile&cityName=&citySituationName=%E6%B7%B1%E5%9C%B3&encrypt=aWxBWjE1NzExMjA4OTUxOTRSRnp6Rg%3D%3D&citySituationId=47&vno=3.2.3&type=-1'

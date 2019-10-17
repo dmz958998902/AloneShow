@@ -22,7 +22,7 @@ import address_nav from '../../components/address_nav'
 import { mapActions, mapState } from 'vuex'
 import axios from 'axios'
 export default {
-  data() {
+  data () {
     return {
       // areaList: {
       //   province_list: {},
@@ -45,13 +45,13 @@ export default {
 
   methods: {
     ...mapActions('address', ['getCities']),
-    onSave() {
+    onSave () {
       Toast('save')
     },
-    onDelete() {
+    onDelete () {
       Toast('delete')
     },
-    onChangeDetail(val) {
+    onChangeDetail (val) {
       if (val) {
         this.searchResult = [
           {
@@ -82,7 +82,7 @@ export default {
     //   console.log(this.areaList.county_list)
     // }
   },
-  created() {
+  created () {
     // axios
     //   .get(
     //     'https://api.mydeershow.com/mobile/app/city/citylist?source=mobile&cityName=%E5%85%A8%E5%9B%BD&citySituationName=%E5%85%A8%E5%9B%BD&encrypt=amhDRDE1NzExMjIyNDc3OTh3YmZrdg%3D%3D&citySituationId=-1&accessToken=8C17D38E71423CCAAB0C91FA29F545D3&vno=3.2.3'

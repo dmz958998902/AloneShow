@@ -44,10 +44,10 @@ export default {
     }
   },
   methods: {
-    onClickLeft() {
+    onClickLeft () {
       this.$toast('返回')
     },
-    onClickRight() {
+    onClickRight () {
       this.$toast('按钮')
     }
   }

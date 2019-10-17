@@ -18,7 +18,7 @@ import Register from './views/register/index.vue'
 import Search from './views/search/index.vue'
 import EdirAddress from './views/edit_address/index.vue'
 import AddAddress from './views/add_address/index.vue'
-//引入三级路由
+// 引入三级路由
 import Crazy from './components/crazy.vue'
 import Live from './components/live.vue'
 import Child from './components/child.vue'
@@ -108,12 +108,12 @@ export default new Router({
       path: '/search',
       component: Search
     },
-    //新增地址页面路由配置
+    // 新增地址页面路由配置
     {
       path: '/address_edit',
       component: EdirAddress
     },
-    //管理我的地址页面路由配置
+    // 管理我的地址页面路由配置
     {
       path: '/address_list',
       component: AddAddress

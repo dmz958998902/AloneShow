@@ -3,15 +3,20 @@ import axios from 'axios'
 export default {
   namespaced: true,
   state: {
-    searchBar: []
+    searchBar: [],
+    searchList: []
   },
   getters: {},
   mutations: {
     setSearchBar(state, payload) {
       state.searchBar = payload
+    },
+    setSearchList(state, payload) {
+      state.searchList = payload
     }
   },
   actions: {
+    // 得到搜索导航的信息
     getSearchBar({ commit }, payload) {
       axios
         .get(
@@ -20,8 +25,31 @@ export default {
         )
         .then(response => {
           let result = response.data.data
-          console.log(response.data.data)
           commit('setSearchBar', result)
+        })
+    },
+    // 得到搜索结果的信息
+    getSearchList({ commit }, payload) {
+      axios
+        .get('https://api.mydeershow.com/mobile/app/activity/searchActivity', {
+          params: {
+            source: 'mobile',
+            cityName: '全国',
+            citySituationName: '全国',
+            encrypt: 'cThXODE1NzEyODMzNzQ0MTF3U2JmWQ==',
+            citySituationId: '-1',
+            vno: '3.2.3',
+            searchValue: payload.searchValue,
+            pageNum: '2',
+            pageSize: '10',
+            activityState: '0',
+            classifyType: '-1'
+          }
+        })
+        .then(response => {
+          let list = response.data.data
+          commit('setSearchList', list)
+          console.log(list)
         })
     }
   }
