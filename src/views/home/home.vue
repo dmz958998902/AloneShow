@@ -18,117 +18,129 @@
         <span>14</span>
       </div>
     </div>
-    <div class="banner">
-      <van-swipe class="ban" :autoplay="3000" indicator-color="white">
-        <van-swipe-item v-for="(item,index) in arr" :key="index">
-          <img :src="item.img" alt />
-        </van-swipe-item>
-      </van-swipe>
-    </div>
-    <div class="activity">
-      <ul>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/home_icon_movie.png" alt />
-          <div>电影</div>
-        </router-link>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/home_icon_show.png" alt />
-          <div>演出</div>
-        </router-link>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/home_icon_motion.png" alt />
-          <div>运动</div>
-        </router-link>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/home_icon_tourism.png" alt />
-          <div>旅行</div>
-        </router-link>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/home_icon_charitable_activies.png" alt />
-          <div>公益</div>
-        </router-link>
-      </ul>
-      <ul>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/home_icon_have_fun.png" alt />
-          <div>玩乐</div>
-        </router-link>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/pop_icon_btn_appointment_eat.png" alt />
-          <div>吃饭</div>
-        </router-link>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/home_icon_chasing_game.png" alt />
-          <div>游戏</div>
-        </router-link>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/home_icon_chasing_stars.png" alt />
-          <div>追星</div>
-        </router-link>
-        <router-link tag="li" to="/home">
-          <img src="https://m.mydeershow.com/pop_icon_btn_appointment_free.png" alt />
-          <div>自由</div>
-        </router-link>
-      </ul>
-    </div>
-    <div class="headline">
-      <div class="tt">
-        <img src="https://m.mydeershow.com/home_notice_show_head_img.png" alt />
-      </div>
+    <div class="scroll" ref="scroll">
       <div>
-        <van-swipe style="height: 20px;" :autoplay="1000" vertical :show-indicators="false">
-          <van-swipe-item
-            style="width:260px;height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#666666;"
-            v-for="item in headlineArr"
-            :key="item.id"
-          >{{item.short_title}}</van-swipe-item>
-        </van-swipe>
-      </div>
-      <div class="dsj">
-        <img src="https://m.mydeershow.com/home_notice_enter.png" alt />
+        <div class="banner">
+          <van-swipe class="ban" :autoplay="3000" indicator-color="white">
+            <van-swipe-item v-for="(item,index) in arr" :key="index">
+              <img :src="item.img" alt />
+            </van-swipe-item>
+          </van-swipe>
+        </div>
+        <div class="activity">
+          <ul>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/home_icon_movie.png" alt />
+              <div>电影</div>
+            </router-link>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/home_icon_show.png" alt />
+              <div>演出</div>
+            </router-link>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/home_icon_motion.png" alt />
+              <div>运动</div>
+            </router-link>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/home_icon_tourism.png" alt />
+              <div>旅行</div>
+            </router-link>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/home_icon_charitable_activies.png" alt />
+              <div>公益</div>
+            </router-link>
+          </ul>
+          <ul>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/home_icon_have_fun.png" alt />
+              <div>玩乐</div>
+            </router-link>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/pop_icon_btn_appointment_eat.png" alt />
+              <div>吃饭</div>
+            </router-link>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/home_icon_chasing_game.png" alt />
+              <div>游戏</div>
+            </router-link>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/home_icon_chasing_stars.png" alt />
+              <div>追星</div>
+            </router-link>
+            <router-link tag="li" to="/home">
+              <img src="https://m.mydeershow.com/pop_icon_btn_appointment_free.png" alt />
+              <div>自由</div>
+            </router-link>
+          </ul>
+        </div>
+        <div class="headline">
+          <div class="tt">
+            <img src="https://m.mydeershow.com/home_notice_show_head_img.png" alt />
+          </div>
+          <div>
+            <van-swipe style="height: 20px;" :autoplay="1000" vertical :show-indicators="false">
+              <van-swipe-item
+                style="width:260px;height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#666666;"
+                v-for="item in headlineArr"
+                :key="item.id"
+              >{{item.short_title}}</van-swipe-item>
+            </van-swipe>
+          </div>
+          <div class="dsj">
+            <img src="https://m.mydeershow.com/home_notice_enter.png" alt />
+          </div>
+        </div>
+        <div class="tabs">
+          <ul>
+            <li :class="{'active':types==='NowPlaying'}" @click="getType('NowPlaying')">正在热映</li>
+            <li :class="{'active':types==='ComePlaying'}" @click="getType('ComePlaying')">即将上映</li>
+          </ul>
+          <router-link class="more" to="/home">
+            <span>更多</span>
+            <img src="https://m.mydeershow.com/home_notice_enter.png" alt />
+          </router-link>
+        </div>
+        <FilmList :filmList="filmList" />
+
+        <div
+          class="choseBar"
+          :class="{'fixed':isFixed}"
+          :style="{'top':isFixed ?`${fixedTop}px`:0}"
+        >
+          <van-tabs
+            v-model="active"
+            title-active-color="red"
+            animate
+            style="width:262px;margin-left:15px;"
+          >
+            <van-tab title="最新"></van-tab>
+            <van-tab title="热门"></van-tab>
+            <van-tab title="约电影"></van-tab>
+            <van-tab title="约演出"></van-tab>
+            <van-tab title="约运动"></van-tab>
+            <van-tab title="约旅游"></van-tab>
+            <van-tab title="约公益"></van-tab>
+            <van-tab title="约玩乐"></van-tab>
+            <van-tab title="约游戏"></van-tab>
+            <van-tab title="约吃饭"></van-tab>
+            <van-tab title="自由约"></van-tab>
+          </van-tabs>
+          <div class="chose">
+            <i>筛选</i>
+            <span class="iconfont icon-xiangxia"></span>
+          </div>
+        </div>
+
+        <Upload :personalYR="personalYR" />
       </div>
     </div>
-    <div class="tabs">
-      <ul>
-        <li :class="{'active':types==='NowPlaying'}" @click="getType('NowPlaying')">正在热映</li>
-        <li :class="{'active':types==='ComePlaying'}" @click="getType('ComePlaying')">即将上映</li>
-      </ul>
-      <router-link class="more" to="/home">
-        <span>更多</span>
-        <img src="https://m.mydeershow.com/home_notice_enter.png" alt />
-      </router-link>
-    </div>
-    <FilmList :filmList="filmList" />
-    <div class="choseBar">
-      <van-tabs
-        v-model="active"
-        title-active-color="red"
-        animate
-        style="width:262px;margin-left:15px;"
-      >
-        <van-tab title="最新">内容 1</van-tab>
-        <van-tab title="热门">内容 2</van-tab>
-        <van-tab title="约电影">内容 3</van-tab>
-        <van-tab title="约演出">内容 4</van-tab>
-        <van-tab title="约运动">内容 4</van-tab>
-        <van-tab title="约旅游">内容 4</van-tab>
-        <van-tab title="约公益">内容 4</van-tab>
-        <van-tab title="约玩乐">内容 4</van-tab>
-        <van-tab title="约游戏">内容 4</van-tab>
-        <van-tab title="约吃饭">内容 4</van-tab>
-        <van-tab title="自由约">内容 4</van-tab>
-      </van-tabs>
-      <div class="chose">
-        <i>筛选</i>
-        <span class="iconfont icon-xiangxia"></span>
-      </div>
-    </div>
-    <div style="width:100%;height:200px;background:white;"></div>
   </div>
 </template>
 <script>
 import axios from 'axios'
 import FilmList from '../../components/movie'
+import Upload from '../../components/upload'
+import BScroll from 'better-scroll'
 export default {
   data() {
     return {
@@ -136,11 +148,16 @@ export default {
       headlineArr: [],
       filmList: [],
       types: 'NowPlaying',
-      active: 1
+      active: 1,
+      personalYR: [],
+      isFixed: false,
+      fixedTop: 0,
+      index: 1
     }
   },
   components: {
-    FilmList
+    FilmList,
+    Upload
   },
   methods: {
     getType(type) {
@@ -153,7 +170,7 @@ export default {
           )
           .then(response => {
             let result = response.data.data
-            console.log(result)
+
             this.filmList = result
           })
       }
@@ -166,11 +183,67 @@ export default {
           )
           .then(response => {
             let result = response.data.data
-            console.log(result)
+
             this.filmList = result
           })
       }
+    },
+    getgirl(index) {
+      axios
+        .get('https://api.mydeershow.com/mobile/app/aboutchat/aboutchatList', {
+          params: {
+            source: 'mobile',
+            citySituationName: '全国',
+            encrypt: 'SVEyZTE1NzEzMjAyMjAyNjlGdnpWSw==',
+            citySituationId: '-1',
+            vno: '3.2.3',
+            pageNum: index,
+            pageSize: 10,
+            buyType: '',
+            type: '',
+            planId: '',
+            kind: '',
+            time: '',
+            chooseSex: '3',
+            buyPattern: '',
+            longitude: '',
+            latitude: '',
+            targetNumber: '',
+            distance: '',
+            relationId: '',
+            minAge: '16',
+            maxAge: '50',
+            isCertification: '',
+            inviteNumber: '0',
+            homeHot: '1',
+            maxId: '',
+            maxUpdateTime: ''
+          }
+        })
+        .then(response => {
+          let result = response.data.data
+          this.personalYR = this.personalYR.concat(result)
+        })
     }
+  },
+  mounted() {
+    let bs = new BScroll(this.$refs.scroll, {
+      probeType: 2,
+      click: true,
+      pullUpLoad: true
+    })
+    bs.on('scroll', data => {
+      if (data.y < -550) {
+        this.isFixed = true
+        this.fixedTop = Math.abs(data.y)
+      } else {
+        this.isFixed = false
+      }
+    })
+    bs.on('pullingUp', () => {
+      this.index++
+      this.getgirl(this.index)
+    })
   },
   created() {
     axios
@@ -179,7 +252,7 @@ export default {
       )
       .then(response => {
         let result = response.data.data.classify1
-        // console.log(result)
+
         this.arr = result
       })
     axios
@@ -188,11 +261,12 @@ export default {
       )
       .then(response => {
         let result = response.data.data
-        // console.log(result)
+
         this.headlineArr = result
       })
 
     this.getType(this.types)
+    this.getgirl(this.index)
   }
 }
 </script>
@@ -204,13 +278,15 @@ export default {
   background: #ffffff;
   display: flex;
   height: 42px;
-  padding: 0 15px 0 15px;
+  width: 100%;
+  justify-content: space-between;
   .nav-left {
     display: flex;
     align-items: center;
-    width: 50px;
+    width: 40px;
     font-size: 14px;
     color: #333333;
+    margin-left: 15px;
     span {
       display: block;
       line-height: 42px;
@@ -250,7 +326,7 @@ export default {
       width: 16px;
       height: 16px;
       border: 1px solid #333333;
-      margin-left: 15px;
+      margin-right: 15px;
       text-align: center;
       line-height: 16px;
       border-radius: 3px;
@@ -344,6 +420,15 @@ export default {
 }
 .choseBar {
   display: flex;
+  width: 100%;
+  z-index: 999;
+  background: #ffffff;
+  &.fixed {
+    position: fixed;
+    ~ .yueh {
+      margin-top: 50px;
+    }
+  }
   .chose {
     width: 50px;
     height: 40px;
@@ -361,5 +446,8 @@ export default {
       display: block;
     }
   }
+}
+.scroll {
+  height: 650px;
 }
 </style>
