@@ -81,7 +81,6 @@ export default {
           }
         })
     },
-    //发送修改地址的请求
     //登录设置cookie
     setCookie(cname, cvalue, exdays) {
       var d = new Date()

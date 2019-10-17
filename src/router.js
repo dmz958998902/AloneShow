@@ -14,6 +14,9 @@ import City from './views/city/index.vue'
 import FilmInfo from './views/filmInfo/index.vue'
 import FilmList from './views/filmList/index.vue'
 import Login from './views/login/index.vue'
+//引入二级登录的子路由
+import Loginok from './views/loginOk/index.vue'
+
 import Register from './views/register/index.vue'
 import Search from './views/search/index.vue'
 import EdirAddress from './views/edit_address/index.vue'
@@ -97,6 +100,16 @@ const router = new Router({
     {
       path: '/login',
       component: Login
+      // children: [
+      //   {
+      //     path: 'password',
+      //     component: Loginok
+      //   }
+      // ]
+    },
+    {
+      path: '/login/password',
+      component: Loginok
     },
     // 注册页路由配置
     {

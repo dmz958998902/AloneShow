@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .van-nav-bar {
   margin-bottom: 4px;
 }
