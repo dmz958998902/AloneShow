@@ -2,7 +2,8 @@
   <div class="a">
     <ul>
       <li v-for="show in discoverShowList" :key="show.id">
-        <div class="content_item">
+        <router-link :to="`/discoverinfo/${ show.id }`">
+          <div class="content_item">
           <div class="dis_userInfo">
             <div class="dis_userCon">
               <a href="#">
@@ -34,6 +35,7 @@
           </div>
 
         </div>
+        </router-link>
       </li>
     </ul>
   </div>

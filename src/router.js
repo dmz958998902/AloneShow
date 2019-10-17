@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 // 引入一级路由组件
 import Home from './views/home/index.vue'
+import discoverInfo from './views/discoverinfo/index.vue'
 // 引入二级路由
 import Homes from './views/home/home.vue'
 import Activity from './views/home/activity.vue'
@@ -108,6 +109,10 @@ const router = new Router({
     {
       path: '/search',
       component: Search
+    },
+    {
+      path: '/discoverinfo/:id',
+      component: discoverInfo
     }
   ]
 })
