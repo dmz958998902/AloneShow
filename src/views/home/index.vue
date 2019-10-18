@@ -64,7 +64,7 @@ export default {
   .nav_bar {
     @include border-top;
     // list-style: none;
-    position: fixed;
+    // position: fixed;
     bottom: 0;
     display: flex;
     justify-content: space-between;

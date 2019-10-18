@@ -1,49 +1,36 @@
 <template>
   <div class="activity-list">
    <ul class="act">
-     <li v-for="item in activityList" :key="item.id">
+     <li v-for="(item, index) in activityList" :key="index" >
+        <router-link :to='`activityDetail/${item.id}`'>
        <div class="act_bg_img" :style="`background-image: url(${item.thumb});`">
          <div class="jishi">
-            <div class="act_bg_s">
+           <div class="act_bg_n" v-if="item.enddate - Millisecond < 0">活动结束</div>
+            <div class="act_bg_s" v-else>
               <div class="jishi_text">距离<span>结束</span>还剩：</div>
+
               <div class="jishi_c" id="jishi_c">
-                <van-count-down
+                <van-count-down @finish='finished'  class='vantc'
                     :time="item.enddate - Millisecond"
                     format="DD 天 HH 时 mm 分 ss 秒"
                    />
-                <!-- <span>
-                  <label>{{ parseInt((item.enddate - Millisecond )/(1000 * 60 * 60 * 24))}}</label>天
-                </span>
-                 <span>
-                  <label>{{parseInt(((item.enddate - Millisecond) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))}}</label>时
-                </span>
-                 <span>
-                  <label>{{parseInt(((item.enddate - Millisecond) % (1000 * 60 * 60)) / (1000 * 60))}}</label>分
-                </span>
-                 <span>
-                  <label>{{parseInt(((item.enddate - Millisecond) % (1000 * 60)) / 1000)}}</label>秒
-                </span> -->
               </div>
             </div>
          </div>
        </div>
        <h4 class="title">{{ item.title }}</h4>
+      </router-link>
      </li>
    </ul>
   </div>
 </template>
 <script>
-import { mapstate, mapActions, mapState} from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
-  name: "activityList",
-  // props: {
-  //   Millisecond: {
-  //       type: Number
-  //   }
-  // },
-  data() {
+  name: 'activityList',
+  data () {
     return {
-      Millisecond: ""
+      Millisecond: ''
     }
   },
   computed: {
@@ -51,25 +38,24 @@ export default {
   },
   methods: {
     ...mapActions('activity', ['getactivityList']),
-    mill(){
-      let date = new Date().getTime();
-      this.Millisecond = date;
+    mill () {
+      let date = new Date().getTime()
+      this.Millisecond = date
     },
-    // finish() {
-    //  this.format="活动结束"
-    // }
+    finished () {
+    }
   },
   created () {
-    this.getactivityList({
-    //   classifyType: this.$store.state.activityList[0].activity_classific
-    }),
+    // this.getactivityList(
+  //   //   classifyType: this.$store.state.activityList[0].activity_classific
+    // );
     this.mill()
-    let obja = this.$store.state.activity
-    console.log(obja)
-    for (let item in obja){
-      console.log(item)
-    }
+  //   let obja = this.$store.state.activity
+  //   console.log(obja)
+  //   for (let item in obja){
+  //     console.log(item)
   }
+  // }
 }
 </script>
 <style lang="scss">
@@ -79,7 +65,7 @@ export default {
    position:absolute;
    top:70px;
    overflow-y: auto;
-   height: 100%;
+  //  height: 100%;
    width:100%;
    .act{
      display: flex;
@@ -106,7 +92,7 @@ export default {
          position:absolute;
          bottom: 0;
          width: 100%;
-         .act_bg_s{
+         .act_bg_s, .act_bg_n{
            display: flex;
            justify-content: space-between;
            position: absolute;
@@ -139,6 +125,9 @@ export default {
               font-size: 12px;
 }
            }
+         }
+         .act_bg_n{
+           color:#fff;
          }
        }
       }

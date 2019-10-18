@@ -17,11 +17,6 @@ import Login from './views/login/index.vue'
 import Register from './views/register/index.vue'
 import Search from './views/search/index.vue'
 import ActivityDetail from './views/activity/activityDetail.vue'
-// 引入三级路由
-// import Crazy from './components/crazy.vue'
-// import Live from './components/live.vue'
-// import Child from './components/child.vue'
-// import Aid from './components/aid.vue'
 
 Vue.use(Router)
 
@@ -90,7 +85,7 @@ export default new Router({
     },
     // 福利页详情页面路由配置
     {
-      path: 'activityDetail/:id',
+      path: '/activityDetail/:id',
       component: ActivityDetail
     }
   ]

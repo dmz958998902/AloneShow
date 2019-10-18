@@ -9,7 +9,6 @@ Vue.use(NavBar)
   .use(Toast)
   .use(CountDown)
 
-
 Vue.config.productionTip = false
 
 new Vue({

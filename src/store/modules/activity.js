@@ -1,9 +1,11 @@
 import axios from 'axios'
+import { Toast } from 'vant'
 export default {
   namespaced: true,
   state: {
     titleList: [], // 头部导航列表
-    activityList: []
+    activityList: [],
+    activityTotal: 1
   },
   getters: {
 
@@ -14,6 +16,9 @@ export default {
     },
     setactivityList (state, payload) {
       state.activityList = payload
+    },
+    setactivityTotal (state, payload) {
+      state.activityTotal = payload
     }
   },
   actions: {
@@ -29,7 +34,6 @@ export default {
             vno: '3.2.3'
           }
         }).then(response => {
-        // console.log(response.data.data)
         let result = response.data.data
         let arr = []
         result.forEach(item => {
@@ -42,30 +46,33 @@ export default {
       })
     },
     getactivityList ({ commit, state }, payload) {
+      Toast.loading({
+        mask: true,
+        duration: 0, // 不让他自动消失
+        message: '加载中...'
+      })
+      // console.log(payload)
       axios.get('https://api.mydeershow.com/mobile/app/activity/activityList',
         {
           params: {
             source: 'mobile',
-            cityName: '% E5 % 85 % A8 % E5 % 9B % BD ',
-            citySituationName: '% E5 % 85 % A8 % E5 % 9B % BD',
-            encrypt: 'TU9lYzE1NzEyMDU4Njk4MjlIU053ZQ % 3D % 3D ',
+            cityName: '全国',
+            citySituationName: '全国',
+            encrypt: 'TU9lYzE1NzEyMDU4Njk4MjlIU053ZQ==',
             citySituationId: -1,
             vno: '3.2.3',
-            pageNum: 1,
+            pageNum: payload.pageNum,
             pageSize: 10,
             activityState: 0,
-            classifyType: 3
+            classifyType: payload.classifyType
           }
         }).then(resp => {
-        console.log(resp.data.data)
-        let resu = resp.data.data
-        // result.forEach(item => {
-        //   arr.push(item.remark)
-        // })
-        // if (response.status === 200) {
-          commit('setactivityList', resu)
-        // }
-        // console.log(resu)
+        // console.log(resp.data.data)
+        commit('setactivityList', state.activityList.concat(resp.data.data))
+        // console.log(resp.data.data)
+        commit('setactivityTotal', resp.data.total_row)
+        payload.callback && payload.callback()
+        Toast.clear()
       })
     }
   }
