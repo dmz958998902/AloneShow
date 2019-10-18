@@ -1,12 +1,10 @@
 <template>
   <div>
-    <div class="dis_love">
+    <div class="dis_love" ref="box">
       <div class="dis_scroll" scroll="true">
-        <div
-          style="transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1); transition-duration: 0ms; transform: translate(0px, 0px) scale(1) translateZ(0px);"
-        >
+        <div>
           <ul class="dis_love_spot" style="padding:0px 14px;border-top: 5px solid #f0f0f0">
-            <li v-for="love in discoverLoveList" :key="love.id">
+            <li v-for="(love,index) in discoverLoveList" :key="index">
               <div class="dis_love_user">
                 <div class="dis_love_userImg">
                   <img :src=" love.headimgurl" alt style="width:29px;height:29px" />
@@ -46,8 +44,14 @@
 <script>
 import formatDate from '../assets/js/publicTime'
 import { mapState, mapActions } from 'vuex'
+import BScroll from 'better-scroll'
 export default {
   name: 'discoverLove',
+  data() {
+    return {
+      curPage: 1
+    }
+  },
   computed: {
     ...mapState('discover', ['discoverLoveList'])
   },
@@ -60,8 +64,39 @@ export default {
   methods: {
     ...mapActions('discover', ['getDiscoverLoveList'])
   },
+  mounted() {
+    let bs = new BScroll(this.$refs.box, {
+      probeType: 3,
+      pullUpLoad: true
+    })
+    //  console.log(bs)
+    bs.on('scroll', data => {
+      // console.log(data)
+    })
+    bs.on('pullingUp', () => {
+      // 判断是否还有下一页
+
+      let totalPage = Math.ceil(this.total_row / 10) // 总的页数
+      if (this.curPage >= totalPage) {
+        bs.finishPullUp()
+        return
+      }
+      // 对curPage做++
+      this.curPage++
+
+      // 重新发送ajax请求
+      this.getDiscoverLoveList({
+        pageNum: this.curPage,
+        callback: () => {
+          bs.finishPullUp()
+        }
+      })
+    })
+  },
   created() {
-    this.getDiscoverLoveList()
+    this.getDiscoverLoveList({
+      pageNum: this.curPage
+    })
   }
 }
 </script>
@@ -102,14 +137,14 @@ export default {
             .iconfont {
               margin: 2px 0 0 5px;
             }
-            .active{
-              display: none
+            .active {
+              display: none;
             }
-            #man{
-              color: #6ab2ef
+            #man {
+              color: #6ab2ef;
             }
-            #woman{
-              color: #ef9dc7
+            #woman {
+              color: #ef9dc7;
             }
           }
           .dis_love_li_time {
