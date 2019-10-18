@@ -1,23 +1,21 @@
+<!-- 登录页面 -->
 <template>
-  <div class="my_register">
-    <!-- 一级路由 注册页面 -->
-
+  <div class="my_loginok">
+    <!-- 一级路由 登录页面 -->
     <login_nav @back="back"></login_nav>
 
-    <login_title hcontent="手机号登录注册" pcontent="未注册手机号验证后自动注册"></login_title>
+    <login_title hcontent="密码登录" pcontent="要确保和手机号一致哦"></login_title>
 
-    <login_input @inputuname="checkname" :isshowspanone="isshowspanone" @inputpwd="checkpwd"></login_input>
+    <login_input
+      :isshowpwd="isshowpwd"
+      :isshowa="isshowa"
+      @inputuname="checkname"
+      :isshowspanone="isshowspanone"
+      @inputpwd="checkpwd"
+    ></login_input>
 
     <div>
-      <login_btn content="点击注册" :colors="colorss" @changerouter="toreg"></login_btn>
-    </div>
-    <p class="changelogin" @click="goLogin">账号密码登录</p>
-    <div class="agreement">
-      <p>
-        注册或登录表示您已经同意
-        <a href>《独角秀用户协议》</a>和
-        <a href>《隐私权专项条款》</a>
-      </p>
+      <login_btn content="登录" :colors="colorss" @changerouter="toreg"></login_btn>
     </div>
   </div>
 </template>
@@ -30,12 +28,12 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      // isshowpwd: false,
-      isshowspanone: false,
-      colorss: 'a2',
-      isClick: false,
-      nameVal: '',
-      pwdVal: ''
+      isshowpwd: true, //显示密码框
+      isshowa: true, //显示忘记密码
+      colorss: 'a2', //改变登录按钮的背景色
+      isshowspanone: false, //账号出错的时候提示用户账号错误
+      nameVal: '', //用户账户
+      pwdVal: '' //用户密码
     }
   },
   components: {
@@ -48,24 +46,13 @@ export default {
     back() {
       let url = this.$route.query.redirect
       this.$router.push({
-        path: '/login',
-        query: {
-          redirect: url
-        }
-      })
-      // this.$router.push('/login')
-    },
-    goLogin() {
-      //在跳转的时候携带原来想要去的路径
-      let url = this.$route.query.redirect
-      this.$router.push({
-        path: '/login/password',
+        path: '/register',
         query: {
           redirect: url
         }
       })
     },
-    //判断用户名
+    //判断用户名是否合格
     checkname(val) {
       this.nameVal = val
       let reg = /^1[3456789]\d{9}$/
@@ -87,30 +74,20 @@ export default {
       //如果按钮亮了 那么发送注册的请求
       if (this.colorss == 'a1' && this.pwdVal.length > 5) {
         //往db.json发送注册的数据
-        this.testUname(this.nameVal, this.pwdVal)
+        this.toLogins(this.nameVal, this.pwdVal)
       } else if (this.colorss == 'a1' && this.pwdVal.length <= 5) {
         alert('密码长度最低6位！')
       }
     },
-    //发送注册的请求
-    toRegister(uname, pwd) {
-      let token = new Date().getTime()
-      axios
-        .post('http://localhost:3000/user', {
-          uname: uname,
-          pwd: pwd,
-          token: token
-        })
-        .then(response => {
-          if (response.status == '201' && response.statusText == 'Created') {
-            alert('注册成功！')
-          }
-          console.log(response)
-        })
+    //登录设置cookie
+    setCookie(cname, cvalue, exdays) {
+      var d = new Date()
+      d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000)
+      var expires = 'expires=' + d.toUTCString()
+      document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
     },
-    //发送注册请求之前的测试操作
-    testUname(uname, pwd) {
-      //在发送注册请求之前先发送获取数据请求，看看数据库是否存在相同的账号，相同就提示用户已被注册，并且终止本次操作
+    //发送登录的请求
+    toLogins(uname, pwd) {
       axios
         .get('http://localhost:3000/user', {
           params: {
@@ -118,12 +95,25 @@ export default {
           }
         })
         .then(response => {
-          if (response.data.length > 0) {
-            alert('用户已被注册，您可以点击下方登录按钮进行登录操作！')
+          if (response.data.length == 0) {
+            alert('用户名不存在!')
             return
           } else {
-            //如果不存在，那么发送注册请求
-            this.toRegister(uname, pwd)
+            if (response.data[0].pwd === pwd) {
+              //登录成功设置返回回来的token到cookie里面
+              let token = response.data[0].token
+              window.localStorage.setItem(
+                'user_login',
+                JSON.stringify({ token: token, uname: uname })
+              )
+              alert('登陆成功！')
+              //登录成功过后重定向到用户想去的页面
+              let willGo = this.$route.query.redirect || '/home'
+              this.$router.replace(willGo)
+              return
+            } else {
+              alert('密码错误！')
+            }
           }
         })
     }

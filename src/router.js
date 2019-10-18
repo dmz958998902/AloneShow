@@ -14,6 +14,9 @@ import City from './views/city/index.vue'
 import FilmInfo from './views/filmInfo/index.vue'
 import FilmList from './views/filmList/index.vue'
 import Login from './views/login/index.vue'
+//引入二级登录的子路由
+import Loginok from './views/loginOk/index.vue'
+
 import Register from './views/register/index.vue'
 import Search from './views/search/index.vue'
 import EdirAddress from './views/edit_address/index.vue'
@@ -26,7 +29,7 @@ import Aid from './components/aid.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     // 主页路由配置
     {
@@ -70,7 +73,10 @@ export default new Router({
         },
         {
           path: 'myself',
-          component: Myself
+          component: Myself,
+          meta: {
+            needIsLogin: true
+          }
         },
         {
           path: '',
@@ -97,10 +103,21 @@ export default new Router({
     {
       path: '/login',
       component: Login
+      // children: [
+      //   {
+      //     path: 'password',
+      //     component: Loginok
+      //   }
+      // ]
+    },
+    {
+      path: '/login/password',
+      component: Loginok
     },
     // 注册页路由配置
     {
       path: '/register',
+      name: 'register',
       component: Register
     },
     // 搜索页面路由配置
@@ -120,3 +137,21 @@ export default new Router({
     }
   ]
 })
+
+//登录拦截
+router.beforeEach((to, from, next) => {
+  let userInfo = window.localStorage.getItem('user_login')
+
+  if (to.meta.needIsLogin && !userInfo) {
+    next({
+      path: '/login',
+      query: {
+        redirect: to.fullPath
+      }
+    })
+  } else {
+    next()
+  }
+})
+
+export default router

@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .van-nav-bar {
   margin-bottom: 4px;
 }
@@ -44,11 +44,11 @@ export default {
     }
   },
   methods: {
-    onClickLeft () {
-      this.$toast('返回')
+    onClickLeft() {
+      this.$emit('leftEvent')
     },
-    onClickRight () {
-      this.$toast('按钮')
+    onClickRight() {
+      this.$emit('rightEvent')
     }
   }
 }

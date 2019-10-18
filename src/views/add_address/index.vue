@@ -1,39 +1,33 @@
 <!-- 管理我的收货地址 一级路由 -->
 <template>
   <div class="my_address">
-    <address_nav title="我的收货地址" right-text="添加新地址"></address_nav>
+    <address_nav
+      title="我的收货地址"
+      right-text="添加新地址"
+      @rightEvent="changeRouter"
+      @leftEvent="onleftSaves"
+    ></address_nav>
     <ul>
-      <li>
+      <li v-for="(item,index) in address_list" :key="index">
         <div class="content_list">
           <div class="content_user_Info">
             <div class="content_user">
-              <span class="name">xx</span>
-              <span class="user_default">默认</span>
-              <span class="phone">158555555</span>
+              <span class="name">{{ item.name }}</span>
+              <span class="user_default" v-if="item.is_default">默认</span>
+              <span class="phone">{{ item.mobile }}</span>
             </div>
-            <div class="content_address">上海市上海市黄浦区xxxxxx吸血书</div>
+            <div
+              class="content_address"
+            >{{ item.province }}{{ item.city }}{{ item.district }}{{ item.address }}</div>
           </div>
-          <div class="content_list_detail">编辑</div>
-        </div>
-      </li>
-      <li>
-        <div class="content_list">
-          <div class="content_user_Info">
-            <div class="content_user">
-              <span class="name">xx</span>
-              <span class="user_default">默认</span>
-              <span class="phone">158555555</span>
-            </div>
-            <div class="content_address">上海市上海市黄浦区xxxxxx吸血书</div>
-          </div>
-          <div class="content_list_detail">编辑</div>
+          <div class="content_list_detail" @click="handleEdit(index)">编辑</div>
         </div>
       </li>
     </ul>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '../../../src/assets/styles/common/mixins.scss';
 .my_address {
   height: 100%;
@@ -108,10 +102,46 @@
 
 <script>
 import address_nav from '../../components/address_nav'
+import axios from 'axios'
 export default {
   name: 'address_list',
   components: {
     address_nav
+  },
+  data() {
+    return {
+      address_list: [],
+      curUrl: ''
+    }
+  },
+  methods: {
+    changeRouter() {
+      this.$router.push('/address_edit')
+    },
+    //请求加载页面的数据
+    getAddressList() {
+      axios
+        .get(
+          'https://api.mydeershow.com/mobile/app/address/retrieve?source=mobile&cityName=%E5%85%A8%E5%9B%BD&citySituationName=%E5%85%A8%E5%9B%BD&encrypt=dEZQUjE1NzExOTc3NzQ4MTAyU1hPdg%3D%3D&citySituationId=-1&accessToken=2A774543C0CD09F9B8A10D70A1A748B0&vno=3.2.3'
+        )
+        .then(response => {
+          this.address_list = response.data.data
+        })
+    },
+    onleftSaves() {
+      this.$router.push('myself')
+    },
+    handleEdit(index) {
+      // 点击携带参数过去编辑页面
+      this.$router.push({
+        path: 'address_edit',
+        query: this.address_list[index]
+      })
+    }
+  },
+  created() {
+    this.getAddressList()
+    console.log()
   }
 }
 </script>
