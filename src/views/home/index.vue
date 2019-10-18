@@ -5,41 +5,42 @@
 
       <router-view></router-view>
 
-    <ul class="nav_bar">
-      <router-link tag="li" to="/home">
-        <p>
-          <i class="iconfont icon-shouye"></i>
-          <span>首页</span>
-        </p>
-      </router-link>
-      <router-link tag="li" to="/discover">
-        <i class="iconfont icon-faxian"></i>
-        <span>发现</span>
-      </router-link>
-      <router-link tag="li" to="/">
-        <img src="https://m.mydeershow.com/tab_home_more_icon.png" alt />
-      </router-link>
-      <router-link tag="li" :to="`/activity`">
-        <i class="iconfont icon-fuli"></i>
-        <span>福利</span>
-      </router-link>
-      <router-link tag="li" to="/myself">
-        <i class="iconfont icon-ziyuan1"></i>
-        <span>我的</span>
-      </router-link>
-    </ul>
+      <ul class="nav_bar">
+        <router-link tag="li" to="/home">
+          <p>
+            <i class="iconfont icon-shouye"></i>
+            <span>首页</span>
+          </p>
+        </router-link>
+        <router-link tag="li" to="/discover">
+          <i class="iconfont icon-faxian"></i>
+          <span>发现</span>
+        </router-link>
+        <router-link tag="li" to="/">
+          <img src="https://m.mydeershow.com/tab_home_more_icon.png" alt />
+        </router-link>
+        <router-link tag="li" :to="`/activity`">
+          <i class="iconfont icon-fuli"></i>
+          <span>福利</span>
+        </router-link>
+        <router-link tag="li" to="/myself">
+          <i class="iconfont icon-ziyuan1"></i>
+          <span>我的</span>
+        </router-link>
+      </ul>
+    </div>
   </div>
 </template>
 <script>
 export default {
   name: 'home',
-  data () {
+  data() {
     return {
       typeColor: 'home'
     }
   },
   methods: {
-    changeAct (type) {
+    changeAct(type) {
       this.typeColor = type
       console.log(type)
     }
@@ -57,7 +58,7 @@ export default {
   flex-direction: column;
   overflow: hidden;
   > div:first-child {
-    overflow:hidden;
+    overflow: hidden;
   }
   .nav_bar {
     @include border-top;

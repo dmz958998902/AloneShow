@@ -19,17 +19,10 @@ import Loginok from './views/loginOk/index.vue'
 
 import Register from './views/register/index.vue'
 import Search from './views/search/index.vue'
-<<<<<<< HEAD
 import EdirAddress from './views/edit_address/index.vue'
 import AddAddress from './views/add_address/index.vue'
-// 引入三级路由
-import Crazy from './components/crazy.vue'
-import Live from './components/live.vue'
-import Child from './components/child.vue'
-import Aid from './components/aid.vue'
-=======
+
 import ActivityDetail from './views/activity/activityDetail.vue'
->>>>>>> origin/daidai
 
 Vue.use(Router)
 
@@ -110,16 +103,12 @@ const router = new Router({
       path: '/search',
       component: Search
     },
-<<<<<<< HEAD
     // 新增地址页面路由配置
     {
       path: '/address_edit',
       component: EdirAddress
     },
     // 管理我的地址页面路由配置
-=======
-    // 福利页详情页面路由配置
->>>>>>> origin/daidai
     {
       path: '/activityDetail/:id',
       component: ActivityDetail
