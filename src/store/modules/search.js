@@ -4,7 +4,8 @@ export default {
   namespaced: true,
   state: {
     searchBar: [],
-    searchList: []
+    searchList: [],
+    qunguo: '全国'
   },
   getters: {},
   mutations: {
@@ -29,7 +30,7 @@ export default {
         })
     },
     // 得到搜索结果的信息
-    getSearchList({ commit }, payload) {
+    getSearchList({ commit, state }, payload) {
       axios
         .get('https://api.mydeershow.com/mobile/app/activity/searchActivity', {
           params: {
@@ -40,7 +41,7 @@ export default {
             citySituationId: '-1',
             vno: '3.2.3',
             searchValue: payload.searchValue,
-            pageNum: '2',
+            pageNum: payload.pageNum,
             pageSize: '10',
             activityState: '0',
             classifyType: '-1'
@@ -48,7 +49,8 @@ export default {
         })
         .then(response => {
           let list = response.data.data
-          commit('setSearchList', list)
+          commit('setSearchList', state.searchList.concat(list))
+          payload.callback && payload.callback()
           console.log(list)
         })
     }

@@ -4,14 +4,7 @@
       <div class="back">
         <i class="iconfont icon-xiangzuo" @click="goback"></i>
       </div>
-      <van-search
-        v-model="value"
-        placeholder="请输入搜索关键词"
-        show-action
-        shape="round"
-        @blur="show"
-        @search="setVal"
-      >
+      <van-search v-model="value" placeholder="请输入搜索关键词" show-action shape="round" @blur="setVal">
         <div slot="action" class="search">搜索</div>
       </van-search>
     </div>
@@ -19,7 +12,7 @@
     <!-- 全部类别和城市 -->
     <div class="kind">
       <ul>
-        <li @changeKind="changeItem($event)">
+        <li :class="{'height-line':onclick1}">
           {{title}}
           <img
             src="https://m.mydeershow.com/img_s_xaila.png"
@@ -28,8 +21,8 @@
             :class="{'active':onclick1}"
           />
         </li>
-        <li>
-          城市
+        <li :class="{'height-line':onclick2}">
+          {{city}}
           <img
             src="https://m.mydeershow.com/img_s_xaila.png"
             alt
@@ -54,13 +47,14 @@
         <span @click="del">清空搜索记录</span>
       </p>
     </div>
-    <!-- 搜索结果展示 -->
-    <ShowContens v-if="showContens" :value="value"></ShowContens>
-    <div class="mask">
+    <p v-if="noContent" class="noContent">搜索的内容不能是空</p>
+    <div class="content">
+      <!-- 搜索结果展示 -->
+      <ShowContens v-if="showContens" :value="value"></ShowContens>
       <!-- 全部类别组件 -->
-      <CityList v-if="onclick2"></CityList>
+      <CityList v-if="onclick2" @changeCity="chgeC($event)"></CityList>
       <!-- 城市组件 -->
-      <Classrify :list="searchBar" v-if="onclick1"></Classrify>
+      <Classrify :list="searchBar" v-if="onclick1" @changeKind="changeItem($event)"></Classrify>
     </div>
   </div>
 </template>
@@ -79,15 +73,17 @@ export default {
   data() {
     return {
       title: '全部类别',
+      city: '城市',
       value: '',
       isShow: true,
       onclick1: false,
       onclick2: false,
       curType: 'classrify', // 设置点击的是当前点击的是全部分类还是城市，默认的是全部分类
-      recodeList: [], //存入localstorage的记录
-      recodes: [], //得到localstorage中的记录
-      showContens: false, //是否展示搜索结果的值，默认是不显示的
-      showRecode: true
+      recodeList: [], // 存入localstorage的记录
+      recodes: [], // 得到localstorage中的记录
+      showContens: true, // 是否展示搜索结果的值，默认是不显示的
+      showRecode: true,
+      noContent: false
     }
   },
   computed: {
@@ -115,16 +111,25 @@ export default {
     // 确定搜索时触发，设置搜索的值
     setVal() {
       // 显示搜索内容结果
-      this.showContens = true
+      // this.isShow = false
+      // if (this.value == '') {
+      //   this.noContent = true
+      // }
+      this.onclick2 = false
+      this.onclick1 = false
       this.showRecode = false
-      let obj = { value: this.value }
-      this.recodeList.push(obj)
-      window.localStorage.setItem('recodeInfo', JSON.stringify(this.recodeList))
+      if (this.value != '') {
+        this.showContens = true
+        this.isShow = false
+        let obj = { value: this.value }
+        this.recodeList.push(obj)
+        window.localStorage.setItem(
+          'recodeInfo',
+          JSON.stringify(this.recodeList)
+        )
+      }
     },
-    //失去焦点时显示内容结果
-    show() {
-      this.isShow = false
-    },
+
     // 得到搜索的值,
     getVal() {
       this.showRecode = true
@@ -135,7 +140,7 @@ export default {
       }
       console.log(this.recodes)
     },
-    //清除搜索记录
+    // 清除搜索记录
     del() {
       window.localStorage.setItem('recodeInfo', '')
       this.recodes = []
@@ -145,14 +150,20 @@ export default {
     changeItem(e) {
       this.title = e
       console.log(this.title)
+    },
+    chgeC(e) {
+      this.city = e
     }
   },
   // 监听输入的值是否有变化，判断搜索记录是否显示
   watch: {
-    value() {
+    value(newVal) {
       this.showRecode = true
       this.getVal()
       this.isShow = true
+      if (newVal === '') {
+        this.showContens = false
+      }
     }
   },
   created() {
@@ -166,6 +177,10 @@ export default {
 .page-search {
   font-size: 12px;
   position: relative;
+  overflow: hidden;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
   .search-bar {
     display: flex;
     .back {
@@ -179,15 +194,15 @@ export default {
     .search {
       color: #e72e62;
     }
-  }
-  .gap {
-    height: 2px;
-    background: #f6f8f8;
+    .gap {
+      height: 2px;
+      background: #f6f8f8;
+    }
   }
   .kind {
     ul {
-      color: #666666;
       display: flex;
+      color: #666666;
       padding-left: 20px;
       @include border-bottom;
       height: 45px;
@@ -204,6 +219,9 @@ export default {
           transform: rotate(180deg);
           transition: all 0.5s;
         }
+      }
+      .height-line {
+        color: #e72e62;
       }
     }
   }
@@ -252,18 +270,14 @@ export default {
       }
     }
   }
-  .nomore {
+  .noContent {
+    height: 30px;
     text-align: center;
+    line-height: 30px;
   }
-  .showContens {
-  }
-  .mask {
-    z-index: 1000;
-    position: absolute;
-    left: 0;
-    top: 93px;
-    background: white;
-    width: 100%;
+  .content {
+    flex: 1;
+    overflow-y: auto;
   }
 }
 </style>

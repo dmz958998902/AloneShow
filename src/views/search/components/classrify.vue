@@ -1,7 +1,7 @@
 <template>
   <div class="classrify">
     <ul>
-      <li :class="{'height-color':curType==='classrify'}" @click="changeType('classrify')">全部分类</li>
+      <li :class="{'height-color':curType==='全部分类'}" @click="changeType('全部分类')">全部分类</li>
       <li
         v-for="item in list"
         :key="item.id"
@@ -14,8 +14,12 @@
 <style lang="scss">
 @import '../../../assets/styles/common/mixins.scss';
 .classrify {
-  font-size: 14px;
+  font-size: 12px;
   color: #666666;
+  position: absolute;
+  top: 100px;
+  background: white;
+  width: 100%;
   ul {
     li {
       padding-left: 15px;
@@ -39,7 +43,7 @@ export default {
   },
   data() {
     return {
-      curType: 'classrify'
+      curType: '全部分类'
     }
   },
   methods: {
