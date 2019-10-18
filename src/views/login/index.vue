@@ -4,7 +4,7 @@
     <!-- <router-view></router-view> -->
     <div class="my_login">
       <!-- 一级路由 登录页面 -->
-      <div class="isLogin">
+      <div class="isLogin" @click="offLoginPage">
         <img src="../../../public/images/login_selection_delete.png" alt />
       </div>
       <div class="my_logo">
@@ -65,7 +65,17 @@ export default {
   },
   methods: {
     changRou() {
-      this.$router.push('/register')
+      //在跳转的时候携带原来想要去的路径
+      let url = this.$route.query.redirect
+      this.$router.push({
+        path: '/register',
+        query: {
+          redirect: url
+        }
+      })
+    },
+    offLoginPage() {
+      this.$router.push('/home')
     }
   }
 }

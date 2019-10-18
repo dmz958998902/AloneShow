@@ -16,7 +16,7 @@
         <div class="myself_name">
           <p>
             <a href>
-              <span class="uname">蔡徐坤的爸爸</span>
+              <span class="uname">{{ uname }}</span>
               <i class="iconfont icon-nan"></i>
               <!-- <i class="iconfont icon-nv"></i> -->
             </a>
@@ -150,12 +150,38 @@
               <b class="iconfont icon-icon--"></b>
             </a>
           </li>
+          <li @click="log_off">
+            <a href>
+              <span>注销登录</span>
+            </a>
+          </li>
         </ul>
       </div>
     </div>
   </div>
 </template>
-
+<script>
+export default {
+  data() {
+    return {
+      uname: '用户昵称不可用'
+    }
+  },
+  methods: {
+    getUname() {
+      this.uname = JSON.parse(window.localStorage.getItem('user_login')).uname
+    },
+    log_off() {
+      //删除localStorage
+      window.localStorage.clear()
+      this.$router.push('/home')
+    }
+  },
+  created() {
+    this.getUname()
+  }
+}
+</script>
 <style lang="scss" scoped>
 .myself_lw {
   height: 500px;
@@ -372,6 +398,13 @@
               font-size: 12px;
               flex: 1;
             }
+          }
+        }
+        li:last-child {
+          text-align: center;
+          span {
+            color: #fc0f4a;
+            font-size: 12px;
           }
         }
       }

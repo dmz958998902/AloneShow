@@ -73,7 +73,10 @@ const router = new Router({
         },
         {
           path: 'myself',
-          component: Myself
+          component: Myself,
+          meta: {
+            needIsLogin: true
+          }
         },
         {
           path: '',
@@ -114,6 +117,7 @@ const router = new Router({
     // 注册页路由配置
     {
       path: '/register',
+      name: 'register',
       component: Register
     },
     // 搜索页面路由配置
@@ -133,4 +137,21 @@ const router = new Router({
     }
   ]
 })
+
+//登录拦截
+router.beforeEach((to, from, next) => {
+  let userInfo = window.localStorage.getItem('user_login')
+
+  if (to.meta.needIsLogin && !userInfo) {
+    next({
+      path: '/login',
+      query: {
+        redirect: to.fullPath
+      }
+    })
+  } else {
+    next()
+  }
+})
+
 export default router

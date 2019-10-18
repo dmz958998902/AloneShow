@@ -81,13 +81,6 @@ export default {
           }
         })
     },
-    //登录设置cookie
-    setCookie(cname, cvalue, exdays) {
-      var d = new Date()
-      d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000)
-      var expires = 'expires=' + d.toUTCString()
-      document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
-    },
 
     onSave(data) {
       //点击保存的时候发送请求 把用户保存的地址存到数据库
