@@ -85,7 +85,7 @@ export default new Router({
     },
     // 影片详情页路由配置
     {
-      path: '/filmInfo',
+      path: '/filmInfo/:id',
       component: FilmInfo
     },
     // 影片列表页路由配置

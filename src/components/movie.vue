@@ -3,7 +3,7 @@
   <div class="film">
     <van-swipe :loop="false" :width="100" :show-indicators="false">
       <van-swipe-item v-for="item in filmList" :key="item.movieId">
-        <router-link class="film-banner" to="/fimlInfo">
+        <router-link class="film-banner" :to="`/filmInfo/${item.movieId}`">
           <img :src="item.moviePoster" alt />
           <span>{{item.showDate}}</span>
           <p>{{item.movieName}}</p>
@@ -33,7 +33,7 @@ export default {
     flex-direction: column;
     img {
       width: 91px;
-      height: 131px;
+      height: 130px;
       border-radius: 3px;
     }
     span {
@@ -41,7 +41,7 @@ export default {
       width: 90px;
       font-size: 12px;
       padding: 5px 0;
-      position: absolute;
+      position: fixed;
       top: 110px;
       color: #ffffff;
       text-align: center;

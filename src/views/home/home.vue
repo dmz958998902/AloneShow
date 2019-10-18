@@ -152,7 +152,8 @@ export default {
       personalYR: [],
       isFixed: false,
       fixedTop: 0,
-      index: 1
+      index: 1,
+      pageNum: ''
     }
   },
   components: {
@@ -222,7 +223,9 @@ export default {
         })
         .then(response => {
           let result = response.data.data
+          let num = response.data.total_page
           this.personalYR = this.personalYR.concat(result)
+          this.pageNum = num
         })
     }
   },
@@ -242,7 +245,12 @@ export default {
     })
     bs.on('pullingUp', () => {
       this.index++
+      if (this.index / 1 > this.pageNum / 1) {
+        bs.finishPullUp()
+        return
+      }
       this.getgirl(this.index)
+      bs.finishPullUp()
     })
   },
   created() {
@@ -448,6 +456,7 @@ export default {
   }
 }
 .scroll {
-  height: 650px;
+  height: 550px;
+  position: relative;
 }
 </style>
