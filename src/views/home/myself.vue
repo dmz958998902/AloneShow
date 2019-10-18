@@ -162,22 +162,22 @@
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       uname: '用户昵称不可用'
     }
   },
   methods: {
-    getUname() {
+    getUname () {
       this.uname = JSON.parse(window.localStorage.getItem('user_login')).uname
     },
-    log_off() {
-      //删除localStorage
+    log_off () {
+      // 删除localStorage
       window.localStorage.clear()
       this.$router.push('/home')
     }
   },
-  created() {
+  created () {
     this.getUname()
   }
 }

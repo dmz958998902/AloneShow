@@ -15,7 +15,7 @@ export default {
         city_list: {},
         county_list: {}
       }
-      //获取省数据
+      // 获取省数据
       array1.forEach(item => {
         state.areaList.province_list[item.provinceCode] = item.provinceName
         // 获取市数据

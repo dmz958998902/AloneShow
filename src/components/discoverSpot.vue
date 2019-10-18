@@ -49,7 +49,7 @@ import { mapState, mapActions } from 'vuex'
 import BScroll from 'better-scroll'
 export default {
   name: 'discoverSpot',
-  data() {
+  data () {
     return {
       curPage: 1
     }
@@ -58,7 +58,7 @@ export default {
     ...mapState('discover', ['discoverSpotList'])
   },
   filters: {
-    formatDate(time) {
+    formatDate (time) {
       var date = new Date(time)
       return formatDate(date, 'yyyy-MM-dd hh:mm')
     }
@@ -66,7 +66,7 @@ export default {
   methods: {
     ...mapActions('discover', ['getDiscoverSpotList'])
   },
-  mounted() {
+  mounted () {
     let bs = new BScroll(this.$refs.box, {
       probeType: 3,
       pullUpLoad: true
@@ -96,7 +96,7 @@ export default {
       })
     })
   },
-  created() {
+  created () {
     this.getDiscoverSpotList({
       pageNum: this.curPage
     })

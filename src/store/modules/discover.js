@@ -10,7 +10,7 @@ export default {
 
   state: {
     discoverList: [], // 全部数据列表
-    discoverShowList: [], //演出数据列表
+    discoverShowList: [], // 演出数据列表
     discoverMovList: [], // 电影页面
     discoverSpotList: [], // 景点页面
     discoverLoveList: [] // 爱的页面
@@ -19,32 +19,32 @@ export default {
 
   },
   mutations: {
-    setDiscoverList(state, payload) {
+    setDiscoverList (state, payload) {
       // 全部数据
       state.discoverList = payload
       // console.log(payload)
     },
-    setDiscoverShowList(state, payload) {
+    setDiscoverShowList (state, payload) {
       // 演出数据
       state.discoverShowList = payload
       console.log(payload)
     },
-    setDiscoverMovList(state, payload) {
+    setDiscoverMovList (state, payload) {
       // 电影数据
       state.discoverMovList = payload
       console.log(payload)
     },
-    setDiscoverSpotList(state, payload) {
+    setDiscoverSpotList (state, payload) {
       // 电影数据
       state.discoverSpotList = payload
       console.log(payload)
     },
-    setDiscoverLoveList(state, payload) {
+    setDiscoverLoveList (state, payload) {
       state.discoverLoveList = payload
     }
   },
   actions: {
-    getDiscoverList({
+    getDiscoverList ({
       commit,
       state
     }, payload) {
@@ -69,7 +69,7 @@ export default {
         // console.log(response.data)
         let result = response.data
         // console.log(result.data)
-        if (result.retCode === "0") {
+        if (result.retCode === '0') {
           // commit('setDiscoverList', result.data)
           commit('setDiscoverList', state.discoverList.concat(result.data))
 
@@ -82,7 +82,7 @@ export default {
         }
       })
     },
-    getDiscoverShowList({
+    getDiscoverShowList ({
       commit,
       state
     }, payload) {
@@ -107,7 +107,7 @@ export default {
         // console.log(response.data)
         let result = response.data
         // console.log(result.data)
-        if (result.retCode === "0") {
+        if (result.retCode === '0') {
           // commit('setDiscoverList', result.data)
           commit('setDiscoverShowList', state.discoverShowList.concat(result.data))
 
@@ -120,7 +120,7 @@ export default {
         }
       })
     },
-    getDiscoverMovList({
+    getDiscoverMovList ({
       commit,
       state
     }, payload) {
@@ -145,7 +145,7 @@ export default {
         // console.log(response.data)
         let result = response.data
         // console.log(result.data)
-        if (result.retCode === "0") {
+        if (result.retCode === '0') {
           // commit('setDiscoverList', result.data)
           commit('setDiscoverMovList', state.discoverMovList.concat(result.data))
 
@@ -158,7 +158,7 @@ export default {
         }
       })
     },
-    getDiscoverSpotList({
+    getDiscoverSpotList ({
       commit,
       state
     }, payload) {
@@ -183,7 +183,7 @@ export default {
         // console.log(response.data)
         let result = response.data
         // console.log(result.data)
-        if (result.retCode === "0") {
+        if (result.retCode === '0') {
           // commit('setDiscoverList', result.data)
           commit('setDiscoverSpotList', state.discoverSpotList.concat(result.data))
 
@@ -196,7 +196,7 @@ export default {
         }
       })
     },
-    getDiscoverLoveList({
+    getDiscoverLoveList ({
       commit,
       state
     }, payload) {
@@ -221,7 +221,7 @@ export default {
         // console.log(response.data)
         let result = response.data
         // console.log(result.data)
-        if (result.retCode === "0") {
+        if (result.retCode === '0') {
           // commit('setDiscoverList', result.data)
           commit('setDiscoverLoveList', state.discoverLoveList.concat(result.data))
 

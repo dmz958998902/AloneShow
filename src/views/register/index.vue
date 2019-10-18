@@ -28,7 +28,7 @@ import login_btn from '../../components/login_btn'
 import login_input from '../../components/login_input'
 import axios from 'axios'
 export default {
-  data() {
+  data () {
     return {
       // isshowpwd: false,
       isshowspanone: false,
@@ -45,7 +45,7 @@ export default {
     login_input
   },
   methods: {
-    back() {
+    back () {
       let url = this.$route.query.redirect
       this.$router.push({
         path: '/login',
@@ -55,8 +55,8 @@ export default {
       })
       // this.$router.push('/login')
     },
-    goLogin() {
-      //在跳转的时候携带原来想要去的路径
+    goLogin () {
+      // 在跳转的时候携带原来想要去的路径
       let url = this.$route.query.redirect
       this.$router.push({
         path: '/login/password',
@@ -65,11 +65,11 @@ export default {
         }
       })
     },
-    //判断用户名
-    checkname(val) {
+    // 判断用户名
+    checkname (val) {
       this.nameVal = val
       let reg = /^1[3456789]\d{9}$/
-      //拿到传递来的input框的值，判断值的长度，等于11 触发这个事件
+      // 拿到传递来的input框的值，判断值的长度，等于11 触发这个事件
       if (val.length === 11 && reg.test(val)) {
         this.isshowspanone = false
         this.isClick = true
@@ -79,21 +79,21 @@ export default {
         this.isshowspanone = true
       }
     },
-    //判断密码
-    checkpwd(val2) {
+    // 判断密码
+    checkpwd (val2) {
       this.pwdVal = val2
     },
-    toreg() {
-      //如果按钮亮了 那么发送注册的请求
+    toreg () {
+      // 如果按钮亮了 那么发送注册的请求
       if (this.colorss == 'a1' && this.pwdVal.length > 5) {
-        //往db.json发送注册的数据
+        // 往db.json发送注册的数据
         this.testUname(this.nameVal, this.pwdVal)
       } else if (this.colorss == 'a1' && this.pwdVal.length <= 5) {
         alert('密码长度最低6位！')
       }
     },
-    //发送注册的请求
-    toRegister(uname, pwd) {
+    // 发送注册的请求
+    toRegister (uname, pwd) {
       let token = new Date().getTime()
       axios
         .post('http://localhost:3000/user', {
@@ -108,9 +108,9 @@ export default {
           console.log(response)
         })
     },
-    //发送注册请求之前的测试操作
-    testUname(uname, pwd) {
-      //在发送注册请求之前先发送获取数据请求，看看数据库是否存在相同的账号，相同就提示用户已被注册，并且终止本次操作
+    // 发送注册请求之前的测试操作
+    testUname (uname, pwd) {
+      // 在发送注册请求之前先发送获取数据请求，看看数据库是否存在相同的账号，相同就提示用户已被注册，并且终止本次操作
       axios
         .get('http://localhost:3000/user', {
           params: {
@@ -120,9 +120,8 @@ export default {
         .then(response => {
           if (response.data.length > 0) {
             alert('用户已被注册，您可以点击下方登录按钮进行登录操作！')
-            return
           } else {
-            //如果不存在，那么发送注册请求
+            // 如果不存在，那么发送注册请求
             this.toRegister(uname, pwd)
           }
         })

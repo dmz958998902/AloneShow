@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       iptval1: '',
       iptval2: ''
@@ -42,13 +42,13 @@ export default {
     }
   },
   methods: {
-    //账号框失去焦点触发事件
-    input1(val1) {
+    // 账号框失去焦点触发事件
+    input1 (val1) {
       // console.log(this.iptval)
       this.$emit('inputuname', val1)
     },
-    //密码框失去焦点触发事件
-    input2(val2) {
+    // 密码框失去焦点触发事件
+    input2 (val2) {
       this.$emit('inputpwd', val2)
     }
   }

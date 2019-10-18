@@ -14,7 +14,7 @@ import City from './views/city/index.vue'
 import FilmInfo from './views/filmInfo/index.vue'
 import FilmList from './views/filmList/index.vue'
 import Login from './views/login/index.vue'
-//引入二级登录的子路由
+// 引入二级登录的子路由
 import Loginok from './views/loginOk/index.vue'
 
 import Register from './views/register/index.vue'
@@ -116,7 +116,7 @@ const router = new Router({
   ]
 })
 
-//登录拦截
+// 登录拦截
 router.beforeEach((to, from, next) => {
   let userInfo = window.localStorage.getItem('user_login')
 

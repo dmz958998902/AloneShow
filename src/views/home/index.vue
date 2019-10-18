@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <div class="page-home">
       <!-- 一级路由 首页 -->
 
@@ -34,13 +34,13 @@
 <script>
 export default {
   name: 'home',
-  data() {
+  data () {
     return {
       typeColor: 'home'
     }
   },
   methods: {
-    changeAct(type) {
+    changeAct (type) {
       this.typeColor = type
       console.log(type)
     }

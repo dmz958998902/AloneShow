@@ -23,7 +23,7 @@ export default {
     }
   },
   methods: {
-    my_click() {
+    my_click () {
       this.$emit('changerouter')
     }
   }

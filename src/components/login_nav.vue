@@ -9,7 +9,7 @@
 <script>
 export default {
   methods: {
-    back() {
+    back () {
       this.$emit('back')
     }
   }

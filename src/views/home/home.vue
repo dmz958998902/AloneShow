@@ -142,7 +142,7 @@ import FilmList from '../../components/movie'
 import Upload from '../../components/upload'
 import BScroll from 'better-scroll'
 export default {
-  data() {
+  data () {
     return {
       arr: [],
       headlineArr: [],
@@ -161,7 +161,7 @@ export default {
     Upload
   },
   methods: {
-    getType(type) {
+    getType (type) {
       this.types = type
       if (type === 'NowPlaying') {
         this.filmList = []
@@ -189,7 +189,7 @@ export default {
           })
       }
     },
-    getgirl(index) {
+    getgirl (index) {
       axios
         .get('https://api.mydeershow.com/mobile/app/aboutchat/aboutchatList', {
           params: {
@@ -229,7 +229,7 @@ export default {
         })
     }
   },
-  mounted() {
+  mounted () {
     let bs = new BScroll(this.$refs.scroll, {
       probeType: 2,
       click: true,
@@ -253,7 +253,7 @@ export default {
       bs.finishPullUp()
     })
   },
-  created() {
+  created () {
     axios
       .get(
         'https://api.mydeershow.com/mobile/app/sowing/list?source=mobile&cityName=&citySituationName=%E6%B7%B1%E5%9C%B3&encrypt=aWxBWjE1NzExMjA4OTUxOTRSRnp6Rg%3D%3D&citySituationId=47&vno=3.2.3&type=-1'

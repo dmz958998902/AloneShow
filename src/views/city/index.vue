@@ -98,7 +98,7 @@
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       hotCity: [
         ['上海', '广州', '北京'],
@@ -116,10 +116,10 @@ export default {
   },
   methods: {
     ...mapActions('city', ['getCities']),
-    goBack() {
+    goBack () {
       this.$router.back()
     },
-    location(curPy) {
+    location (curPy) {
       this.curPy = curPy
       this.curBu = curPy
       setTimeout(() => {
@@ -131,7 +131,7 @@ export default {
       cityList.scrollTop = top
     }
   },
-  created() {
+  created () {
     this.getCities()
   }
 }

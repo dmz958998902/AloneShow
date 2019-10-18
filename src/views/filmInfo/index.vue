@@ -73,14 +73,14 @@
 <script>
 import axios from 'axios'
 export default {
-  data() {
+  data () {
     return {
       filmInfo: [],
       id: ''
     }
   },
   methods: {
-    getFilmInfo(id) {
+    getFilmInfo (id) {
       axios
         .get('https://api.mydeershow.com/mobile/app/movie/movieInfo', {
           params: {
@@ -100,7 +100,7 @@ export default {
         })
     }
   },
-  created() {
+  created () {
     this.id = this.$route.params.id
     this.getFilmInfo(this.id)
   }

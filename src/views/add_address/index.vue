@@ -108,18 +108,18 @@ export default {
   components: {
     address_nav
   },
-  data() {
+  data () {
     return {
       address_list: [],
       curUrl: ''
     }
   },
   methods: {
-    changeRouter() {
+    changeRouter () {
       this.$router.push('/address_edit')
     },
-    //请求加载页面的数据
-    getAddressList() {
+    // 请求加载页面的数据
+    getAddressList () {
       axios
         .get(
           'https://api.mydeershow.com/mobile/app/address/retrieve?source=mobile&cityName=%E5%85%A8%E5%9B%BD&citySituationName=%E5%85%A8%E5%9B%BD&encrypt=dEZQUjE1NzExOTc3NzQ4MTAyU1hPdg%3D%3D&citySituationId=-1&accessToken=2A774543C0CD09F9B8A10D70A1A748B0&vno=3.2.3'
@@ -128,10 +128,10 @@ export default {
           this.address_list = response.data.data
         })
     },
-    onleftSaves() {
+    onleftSaves () {
       this.$router.push('myself')
     },
-    handleEdit(index) {
+    handleEdit (index) {
       // 点击携带参数过去编辑页面
       this.$router.push({
         path: 'address_edit',
@@ -139,7 +139,7 @@ export default {
       })
     }
   },
-  created() {
+  created () {
     this.getAddressList()
     console.log()
   }

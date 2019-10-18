@@ -64,8 +64,8 @@ export default {
     login_btn
   },
   methods: {
-    changRou() {
-      //在跳转的时候携带原来想要去的路径
+    changRou () {
+      // 在跳转的时候携带原来想要去的路径
       let url = this.$route.query.redirect
       this.$router.push({
         path: '/register',
@@ -74,7 +74,7 @@ export default {
         }
       })
     },
-    offLoginPage() {
+    offLoginPage () {
       this.$router.push('/home')
     }
   }

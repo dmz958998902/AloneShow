@@ -44,10 +44,10 @@ export default {
     }
   },
   methods: {
-    onClickLeft() {
+    onClickLeft () {
       this.$emit('leftEvent')
     },
-    onClickRight() {
+    onClickRight () {
       this.$emit('rightEvent')
     }
   }
