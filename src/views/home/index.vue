@@ -20,9 +20,9 @@
       <router-link tag="li" to="/">
         <img src="https://m.mydeershow.com/tab_home_more_icon.png" alt />
       </router-link>
-      <router-link tag="li" :to="`/activity`">
+      <router-link tag="li"  to="/activity">
         <i class="iconfont icon-fuli"></i>
-        <span>福利</span>
+        <span >福利</span>
       </router-link>
       <router-link tag="li" to="/myself">
         <i class="iconfont icon-ziyuan1"></i>
@@ -64,7 +64,7 @@ export default {
   .nav_bar {
     @include border-top;
     // list-style: none;
-    // position: fixed;
+    position: fixed;
     bottom: 0;
     display: flex;
     justify-content: space-between;
@@ -98,6 +98,9 @@ export default {
         color: #e72e62;
       }
     }
+  }
+  .activess{
+    color: #e72e62;
   }
 }
 </style>

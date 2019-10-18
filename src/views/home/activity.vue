@@ -18,14 +18,25 @@
 
       <div class="screenbox">
         <ul>
-          <router-link v-for="(tit, index) in titleList" @click="changeView" :class="{'router-link-active': index === 0 && $route.path === '/activity' }" :key="index"  tag="li" :to="`/activity/${index}`">{{ tit }}</router-link>
-          <i class="iconfont icon-xiangxia"></i>
+          <router-link v-for="(tit, index) in titleList" @click.native="changeView(index)" :class="{'router-link-active': index === 0 && $route.path === '/activity' }" :key="index"  tag="li" :to="`/activity/${index}`">{{ tit }}</router-link>
+          <span class="iconfont icon-xiangxia" v-if="show" @click="changed"></span>
+          <span class="iconfont icon-xiangxia" style="transform: rotate(-180deg);"  @click="changed" v-else></span>
         </ul>
+        <div class="drop-down" v-if="isdisplay">
+          <ul>
+            <li>全部</li>
+            <li>进行中</li>
+            <li>未开始</li>
+            <li>已结束</li>
+          </ul>
+        </div>
       </div>
     </div>
     <!-- <div style="height:200px"></div> -->
     <div ref="box" class="boxx">
+      <!-- <keep-alive> -->
         <activityList></activityList>
+        <!-- </keep-alive> -->
     </div>
 
   </div>
@@ -43,7 +54,9 @@ export default {
     return {
       curtype: 'live',
       curpageNum: 1,
-      classifyType: 2
+      classify: null,
+      isdisplay: false,
+      show:true,
     }
   },
   // watch: {
@@ -58,31 +71,52 @@ export default {
     changeType (type) {
       this.curtype = type
     },
-    changeView () {
-      console.log(1)
+    changed(){
+      this.isdisplay = !this.isdisplay;
+        this.show = !this.show
+    },
+    changeView(value){
+      // console.log(value == 0)
+     if(value==0||value==undefined){
+       this.classify = 2
+     }else if(value==1){
+       this.classify = 3
+     }else if(value==2){
+       this.classify = 4
+     }else{
+       this.classify = 1
+     }
+     console.log(this.classify)
     }
-    // changeView(){
-    //   console.log(1)
-    //  if(value===0){
-    //    this.classifyType = 2
-    //  }else if(value===1){
-    //    this.classifyType = 3
-    //  }else if(vlaue===2){
-    //    this.classifyType = 4
-    //  }else{
-    //    this.classifyType = 1
-    //  }
-    // }
   },
+  watch: {
+    classify: {
+      handler(newVal) {
+        this.setactivityList([])
+        this.curpageNum = 1
+        this.$store.dispatch('activity/getactivityList', {
+          pageNum: this.curpageNum,
+          classifyType: this.classify
+         })
+      },
+      immediate: true
+    }
+  },
+
   created () {
     this.getTitleList()
+    let value = this.$route.params.id
+    console.log(value)
+    this.changeView(value)
     // this.getactivityList()
-    this.$store.dispatch('activity/getactivityList', {
-      pageNum: this.curpageNum,
-      classifyType: this.classifyType
-    })
+    // this.$store.dispatch('activity/getactivityList', {
+    //   pageNum: this.curpageNum,
+    //   classifyType: this.classify
+    // })
   },
   mounted () {
+    //  let value = this.$route.params.id
+    // changeView(value)
     let bs = new BScroll(this.$refs.box, {
       click: true,
       probeType: 3,
@@ -91,18 +125,17 @@ export default {
     bs.on('pullingUp', () => {
       // console.log(1)
       let totalPage = Math.ceil(this.activityTotal / 10)
-      console.log(totalPage)
+      // console.log(totalPage)
       if (this.curpageNum >= totalPage) {
-        alert(1)
+        // alert(1)
         bs.finishPullUp()
-
         return
       }
       this.curpageNum++
       console.log(this.curpageNum)
       this.$store.dispatch('activity/getactivityList', {
         pageNum: this.curpageNum,
-        classifyType: this.classifyType,
+        classifyType: this.classify,
         callback: () => {
           this.$nextTick(() => {
             bs.finishPullUp()
@@ -133,8 +166,8 @@ export default {
     overflow: hidden;
     // padding-bottom: 42px;
     .a{
-      // position: fixed;
-      // top: 0;
+      position: fixed;
+      top: 0;
       // left: 0;
       width:100%;
       background-color: #fff;
@@ -183,7 +216,7 @@ export default {
          font-size:13px;
          &.router-link-active{
            color:#e72e62;
-           @include aa
+           @include aa;
          }
        }
      }
@@ -195,6 +228,9 @@ export default {
   }
  }
  .activity::-webkit-scrollbar{
+           display: none;
+   }
+   .boxx::-webkit-scrollbar{
            display: none;
    }
 </style>

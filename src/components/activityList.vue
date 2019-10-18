@@ -2,7 +2,7 @@
   <div class="activity-list">
    <ul class="act">
      <li v-for="(item, index) in activityList" :key="index" >
-        <router-link :to='`activityDetail/${item.id}`'>
+        <router-link :to='`/activityDetail/${item.id}`'>
        <div class="act_bg_img" :style="`background-image: url(${item.thumb});`">
          <div class="jishi">
            <div class="act_bg_n" v-if="item.enddate - Millisecond < 0">活动结束</div>
@@ -73,6 +73,7 @@ export default {
      background: #ffffff;
     //  position: relative;
     //  bottom: 45px;
+    margin-top: 64px;
     margin-bottom:45px;
      li{
       padding:13px;
