@@ -3,49 +3,36 @@
   <div class="page-city">
     <van-nav-bar title="选择城市">
       <template #left>
-        <i class="iconfont icon-xiangzuo" @click="goBack"></i>
+        <i class="iconfont icon-xiangzuo"></i>
       </template>
     </van-nav-bar>
     <!-- 城市列表选择 -->
-    <div class="city-list" ref="box">
+    <div class="city-list">
       <div class="city-item">
-        <p class="orientCity" :id="prePy[0]">
+        <p class="orientCity">
           <span></span>
           定位城市
         </p>
         <P class="orient">广州</P>
-        <p class="hotCity" :id="prePy[1]">热门城市</p>
+        <p class="hotCity">热门城市</p>
         <div class="hotCityList">
           <ul v-for="cityArr in hotCity" :key="cityArr.index">
             <li v-for="city in cityArr" :key="city">{{city}}</li>
           </ul>
         </div>
-        <div class="city-select" v-for="city in cityList" :key="city.py" :id="city.py">
+        <div class="city-select" v-for="city in cityList" :key="city.py">
           <p class="cityPy">{{city.py}}</p>
           <ul>
             <li v-for="cityItem in city.list" :key="cityItem.id">{{cityItem.name}}</li>
           </ul>
         </div>
       </div>
-      <div class="city-bar">
+      <!-- <div class="city-bar">
         <ul>
-          <li
-            v-for="item in prePy"
-            :key="item"
-            @click="location(item)"
-            :class="{'active':item===curPy}"
-          >{{item}}</li>
-          <li
-            v-for="city in cityList"
-            :key="city.py"
-            @click="location(city.py)"
-            :class="{'active':city.py===curPy}"
-          >{{city.py}}</li>
+          <li v-for="py in 10" :key="py">{{py}}</li>
         </ul>
-      </div>
+      </div>-->
     </div>
-    <!-- 缓冲提示 -->
-    <div class="buffer" v-if="curBu">{{curBu}}</div>
   </div>
 </template>
 <style lang='scss'>
@@ -65,11 +52,9 @@
     flex: 1;
     overflow-y: auto;
     font-size: 14px;
+    display: flex;
     width: 100%;
-    position: relative;
-    color: #666666;
     .city-item {
-      flex: 1;
       p {
         height: 45px;
         line-height: 45px;
@@ -85,12 +70,11 @@
         height: 225px;
         ul {
           display: flex;
-          padding-right: 40px;
           li {
-            text-align: center;
             height: 45px;
-            width: 33%;
+            padding: 0 15px;
             line-height: 45px;
+            width: 112px;
           }
         }
       }
@@ -108,41 +92,6 @@
         }
       }
     }
-    .city-bar {
-      width: 40px;
-      position: fixed;
-      height: 100%;
-      right: 0;
-      top: 0;
-      z-index: 999;
-      display: flex;
-      align-items: center;
-      ul {
-        li {
-          width: 40px;
-          text-align: center;
-          height: 20px;
-          &.active {
-            color: #fe104c;
-          }
-        }
-      }
-    }
-  }
-  .buffer {
-    width: 80px;
-    height: 80px;
-    background: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 20px;
-    text-align: center;
-    line-height: 80px;
-    color: white;
-    transition: all 0.3s;
-    font-size: 16px;
   }
 }
 </style>
@@ -157,17 +106,16 @@ export default {
         ['天津', '杭州', '厦门'],
         ['长沙', '深圳', '重庆'],
         ['南京', '武汉', '西安']
-      ],
-      curPy: '定',
-      curBu: '',
-      prePy: ['定', '热']
+      ]
     }
   },
   computed: {
     ...mapState('city', ['cities']),
-    ...mapGetters('city', ['cityList'])
+    ...mapGetters('city', ['cityList']),
+    ...mapGetters('city', ['cityPy'])
   },
   methods: {
+<<<<<<< HEAD
     ...mapActions('city', ['getCities']),
     goBack () {
       this.$router.back()
@@ -183,6 +131,9 @@ export default {
       let top = pyId.offsetTop
       cityList.scrollTop = top
     }
+=======
+    ...mapActions('city', ['getCities'])
+>>>>>>> origin/daidai
   },
   created () {
     this.getCities()

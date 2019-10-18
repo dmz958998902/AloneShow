@@ -14,7 +14,8 @@ import {
   AddressEdit,
   Area,
   Tab,
-  Tabs
+  Tabs,
+  CountDown
 } from 'vant'
 Vue.use(NavBar)
   .use(Search)
@@ -27,6 +28,7 @@ Vue.use(NavBar)
   .use(Area)
   .use(Tab)
   .use(Tabs)
+  .use(CountDown)
 
 Vue.config.productionTip = false
 

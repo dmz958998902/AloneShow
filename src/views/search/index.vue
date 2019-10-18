@@ -1,25 +1,12 @@
 <template>
-  <div class="page-search">
-    <div class="search-bar">
-      <div class="back">
-        <i class="iconfont icon-xiangzuo" @click="goback"></i>
-      </div>
-      <van-search v-model="value" placeholder="请输入搜索关键词" show-action shape="round" @focus="fn">
-        <div slot="action" class="search">搜索</div>
-      </van-search>
-    </div>
-    <div class="kind">
-      <van-dropdown-menu active-color="#e72e62" :overlay="false" ref="box">
-        <van-dropdown-item v-model="value1" :options="option1" />
-        <van-dropdown-item v-model="value2" :options="option2" />
-      </van-dropdown-menu>
-    </div>
-    <div class="nomore" v-if="isShow">没有更多</div>
+  <div>
+    <!-- 一级路由 搜索页面 -->
+    <h1>在此处搜索</h1>
   </div>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       value: '',
       isShow: false,
@@ -40,17 +27,17 @@ export default {
     }
   },
   methods: {
-    fn () {
+    fn() {
       this.value.focus()
     },
-    goback () {
+    goback() {
       this.$router.back()
     },
-    clickItem () {
+    clickItem() {
       console.log(this.$refs.box)
     }
   },
-  created () {
+  created() {
     this.clickItem()
   }
 }
