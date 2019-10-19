@@ -1,6 +1,7 @@
 <template>
   <div class="activityDetail">
     <div class="top">
+      详情页
       <!-- <div class="act_bg_img" :style="`background-image: url(${item.thumb});`">
          <div class="jishi">
            <div class="act_bg_n" v-if="item.enddate - Millisecond < 0">活动结束</div>

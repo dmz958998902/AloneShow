@@ -52,6 +52,7 @@ export default {
         message: '加载中...'
       })
       // console.log(payload)
+      console.log(payload)
       axios.get('https://api.mydeershow.com/mobile/app/activity/activityList',
         {
           params: {
@@ -63,7 +64,7 @@ export default {
             vno: '3.2.3',
             pageNum: payload.pageNum,
             pageSize: 10,
-            activityState: 0,
+            activityState: payload.activityState,
             classifyType: payload.classifyType
           }
         }).then(resp => {

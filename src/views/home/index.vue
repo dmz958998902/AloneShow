@@ -19,7 +19,7 @@
         <router-link tag="li" to="/">
           <img src="https://m.mydeershow.com/tab_home_more_icon.png" alt />
         </router-link>
-        <router-link tag="li" :to="`/activity`">
+        <router-link tag="li" to="/activity">
           <i class="iconfont icon-fuli"></i>
           <span>福利</span>
         </router-link>
@@ -34,13 +34,13 @@
 <script>
 export default {
   name: 'home',
-  data () {
+  data() {
     return {
       typeColor: 'home'
     }
   },
   methods: {
-    changeAct (type) {
+    changeAct(type) {
       this.typeColor = type
       console.log(type)
     }
@@ -93,6 +93,9 @@ export default {
         color: #e72e62;
       }
     }
+  }
+  .activess {
+    color: #e72e62;
   }
 }
 .gif {

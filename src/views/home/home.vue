@@ -27,7 +27,7 @@
             </van-swipe-item>
           </van-swipe>
         </div>
-        <div class="activity">
+        <div class="activi">
           <ul>
             <router-link tag="li" to="/home">
               <img src="https://m.mydeershow.com/home_icon_movie.png" alt />
@@ -111,7 +111,7 @@
             v-model="active"
             title-active-color="red"
             animate
-            style="width:262px;margin-left:15px;"
+            style="width:242px;margin-left:15px;"
           >
             <van-tab title="最新"></van-tab>
             <van-tab title="热门"></van-tab>
@@ -142,7 +142,7 @@ import FilmList from '../../components/movie'
 import Upload from '../../components/upload'
 import BScroll from 'better-scroll'
 export default {
-  data () {
+  data() {
     return {
       arr: [],
       headlineArr: [],
@@ -163,7 +163,7 @@ export default {
     Upload
   },
   methods: {
-    getType (type) {
+    getType(type) {
       this.types = type
       if (type === 'NowPlaying') {
         this.filmList = []
@@ -191,7 +191,7 @@ export default {
           })
       }
     },
-    getgirl (index) {
+    getgirl(index) {
       axios
         .get('https://api.mydeershow.com/mobile/app/aboutchat/aboutchatList', {
           params: {
@@ -230,17 +230,17 @@ export default {
           this.pageNum = num
         })
     },
-    getDate () {
+    getDate() {
       let d = new Date()
       let day = d.getDate()
       this.day = day
     },
-    getCity () {
+    getCity() {
       let cityZb = window.localStorage.getItem('cityInfo')
       this.cityZb = cityZb
     }
   },
-  mounted () {
+  mounted() {
     let bs = new BScroll(this.$refs.scroll, {
       probeType: 2,
       click: true,
@@ -264,7 +264,7 @@ export default {
       bs.finishPullUp()
     })
   },
-  created () {
+  created() {
     this.getDate()
     this.getCity()
     axios
@@ -368,7 +368,8 @@ export default {
     }
   }
 }
-.activity {
+.activi {
+  height: 153px;
   padding: 10px 0;
   ul {
     display: flex;
@@ -452,18 +453,17 @@ export default {
   }
   .chose {
     width: 50px;
-    height: 40px;
-    margin-left: 35px;
+    height: 44px;
     display: flex;
+    margin-left: 15px;
     align-items: center;
     i {
       color: #333333;
       font-size: 14px;
       display: block;
-      margin-right: 5px;
     }
     span {
-      color: 20px;
+      font-size: 14px;
       display: block;
     }
   }
