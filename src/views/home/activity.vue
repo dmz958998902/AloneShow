@@ -1,21 +1,21 @@
 <!-- 二级路由 福利页面 -->
 <template>
+<div>
   <div class="activity">
     <div class="a">
       <div class="h_title">
-        <div class="h_andress">
-          <span>深圳</span>
+        <div class="h_andress"  @click="changeAdress">
+          <span>{{na}}</span>
           <i class="iconfont icon-xiangxia"></i>
         </div>
         <div class="h_search">
-          <router-link to="/activitysearch">
+          <router-link to="/search">
           <i class="iconfont icon-sousuo"></i>
           搜索你想要的活动
           </router-link>
         </div>
         <div style="width:66px"></div>
       </div>
-
       <div class="screenbox">
         <ul>
           <router-link v-for="(tit, index) in titleList" @click.native="changeView(index)" :class="{'router-link-active': index === 0 && $route.path === '/activity' }" :key="index"  tag="li" :to="`/activity/${index}`">{{ tit }}</router-link>
@@ -24,44 +24,53 @@
         </ul>
         <div class="drop-down" v-if="isdisplay">
           <ul>
-            <li>全部</li>
-            <li>进行中</li>
-            <li>未开始</li>
-            <li>已结束</li>
+            <li @click="changeSt(0)" :class="{'ress':activityS==0}">全部</li>
+            <li @click="changeSt(2)" :class="{'ress':activityS==2}">进行中</li>
+            <li @click="changeSt(1)" :class="{'ress':activityS==1}">未开始</li>
+            <li @click="changeSt(3)" :class="{'ress':activityS==3}">已结束</li>
           </ul>
         </div>
       </div>
     </div>
     <!-- <div style="height:200px"></div> -->
     <div ref="box" class="boxx">
+
       <!-- <keep-alive> -->
-        <activityList></activityList>
+        <activityList v-if="xd"></activityList>
+        <nodata v-if="!xd"></nodata>
         <!-- </keep-alive> -->
     </div>
 
   </div>
+  <activAdress v-if="showAdress" @changeCity="fv($event)" ></activAdress>
+  </div>
 </template>
 <script>
 import activityList from './../../components/activityList'
+import nodata from './../../components/nodata'
+import activAdress from './../../components/activityAdress'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import BScroll from 'better-scroll'
 export default {
   name: 'activity',
   components: {
-    activityList
+    activityList,
+    nodata,
+    activAdress
   },
   data () {
     return {
       curtype: 'live',
       curpageNum: 1,
       classify: null,
+      activityS: 0,
       isdisplay: false,
-      show:true,
+      show: true,
+      showAdress: false,
+      xd: true,
+      na:'全国'
     }
   },
-  // watch: {
-
-  // },
   computed: {
     ...mapState('activity', ['titleList', 'activityList', 'activityTotal'])
   },
@@ -71,33 +80,65 @@ export default {
     changeType (type) {
       this.curtype = type
     },
-    changed(){
-      this.isdisplay = !this.isdisplay;
-        this.show = !this.show
+    changed () {
+      this.isdisplay = !this.isdisplay
+      this.show = !this.show
     },
-    changeView(value){
+    changeView (value) {
       // console.log(value == 0)
-     if(value==0||value==undefined){
-       this.classify = 2
-     }else if(value==1){
-       this.classify = 3
-     }else if(value==2){
-       this.classify = 4
-     }else{
-       this.classify = 1
-     }
-     console.log(this.classify)
+      if (value == 0 || value == undefined) {
+        this.classify = 2
+      } else if (value == 1) {
+        this.classify = 3
+      } else if (value == 2) {
+        this.classify = 4
+      } else {
+        this.classify = 1
+      }
+      console.log(this.classify)
+    },
+    changeSt (valued) {
+      this.activityS = valued
+      console.log(this.activityS)
+    },
+    changeAdress(){
+      this.showAdress=!this.showAdress
+    },
+    changeyu () {
+      console.log(this.$store.state.activity.activityTotal)
+      // if(activityList){}
+
+    },
+    fv(e){
+      this.na=e
     }
   },
   watch: {
     classify: {
-      handler(newVal) {
+      handler (newVal) {
         this.setactivityList([])
         this.curpageNum = 1
         this.$store.dispatch('activity/getactivityList', {
           pageNum: this.curpageNum,
-          classifyType: this.classify
-         })
+          classifyType: this.classify,
+          activityState: this.activityS
+        })
+      },
+      immediate: true,
+
+    },
+     na(){
+         this.showAdress=false
+     },
+    activityS: {
+      handler (newVal) {
+        this.setactivityList([])
+        this.curpageNum = 1
+        this.$store.dispatch('activity/getactivityList', {
+          pageNum: this.curpageNum,
+          classifyType: this.classify,
+          activityState: this.activityS
+        })
       },
       immediate: true
     }
@@ -108,11 +149,8 @@ export default {
     let value = this.$route.params.id
     console.log(value)
     this.changeView(value)
-    // this.getactivityList()
-    // this.$store.dispatch('activity/getactivityList', {
-    //   pageNum: this.curpageNum,
-    //   classifyType: this.classify
-    // })
+    this.changeyu()
+    // console.log(this.$store.state.activity)
   },
   mounted () {
     //  let value = this.$route.params.id
@@ -136,6 +174,7 @@ export default {
       this.$store.dispatch('activity/getactivityList', {
         pageNum: this.curpageNum,
         classifyType: this.classify,
+        activityState: this.activityS,
         callback: () => {
           this.$nextTick(() => {
             bs.finishPullUp()
@@ -164,6 +203,8 @@ export default {
     height: 100%;
     width: 100%;
     overflow: hidden;
+    position:absolute;
+    z-index:0;
     // padding-bottom: 42px;
     .a{
       position: fixed;
@@ -219,6 +260,9 @@ export default {
            @include aa;
          }
        }
+     }
+     .drop-down .ress{
+       color:#e72e62;
      }
    }
     }
