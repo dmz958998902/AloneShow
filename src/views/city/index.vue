@@ -13,17 +13,21 @@
           <span></span>
           定位城市
         </p>
-        <P class="orient">广州</P>
+        <P class="orient" @click="fn('广州')">广州</P>
         <p class="hotCity" :id="prePy[1]">热门城市</p>
         <div class="hotCityList">
           <ul v-for="cityArr in hotCity" :key="cityArr.index">
-            <li v-for="city in cityArr" :key="city">{{city}}</li>
+            <li v-for="city in cityArr" :key="city" @click="fn(city)">{{city}}</li>
           </ul>
         </div>
         <div class="city-select" v-for="city in cityList" :key="city.py" :id="city.py">
           <p class="cityPy">{{city.py}}</p>
           <ul>
-            <li v-for="cityItem in city.list" :key="cityItem.id">{{cityItem.name}}</li>
+            <li
+              v-for="cityItem in city.list"
+              :key="cityItem.id"
+              @click="fn(cityItem.name)"
+            >{{cityItem.name}}</li>
           </ul>
         </div>
       </div>
@@ -149,7 +153,7 @@
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
-  data () {
+  data() {
     return {
       hotCity: [
         ['上海', '广州', '北京'],
@@ -169,10 +173,10 @@ export default {
   },
   methods: {
     ...mapActions('city', ['getCities']),
-    goBack () {
+    goBack() {
       this.$router.back()
     },
-    location (curPy) {
+    location(curPy) {
       this.curPy = curPy
       this.curBu = curPy
       setTimeout(() => {
@@ -182,9 +186,13 @@ export default {
       let cityList = this.$refs.box
       let top = pyId.offsetTop
       cityList.scrollTop = top
+    },
+    fn(city) {
+      this.$router.push('/home')
+      window.localStorage.setItem('cityInfo', city)
     }
   },
-  created () {
+  created() {
     this.getCities()
   }
 }
