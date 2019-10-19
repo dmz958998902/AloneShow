@@ -2,7 +2,7 @@
   <div class="com" ref="box">
     <div>
       <ul>
-        <li v-for="(dis,index) in discoverList" :key="index">
+        <li v-for="(dis,index) in discoverList" :key="index"  @click="selectItem(dis)">
           <div class="content_item">
             <div class="dis_userInfo">
               <div class="dis_userCon">
@@ -65,7 +65,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions('discover', ['getDiscoverList'])
+    ...mapActions('discover', ['getDiscoverList']),
+    selectItem(dis){
+      this.$router.push({
+        path:`/discoverinfo/${dis.id}`,
+      })
+      }
   },
   mounted() {
     let bs = new BScroll(this.$refs.box, {

@@ -2,8 +2,8 @@
   <div class="Show" ref="box">
     <div>
       <ul>
-        <li v-for="(show,index) in discoverShowList" :key="index">
-          <router-link :to="`/discoverinfo/${ show.id }`">
+        <li v-for="(show,index) in discoverShowList" :key="index" @click="selectItem(show)">
+          <!-- <router-link :to="`/discoverinfo/${ show.id }`"> -->
             <div class="content_item">
               <div class="dis_userInfo">
                 <div class="dis_userCon">
@@ -39,7 +39,7 @@
                 </div>
               </div>
             </div>
-          </router-link>
+          <!-- </router-link> -->
         </li>
       </ul>
     </div>
@@ -47,11 +47,16 @@
 </template>
 <script>
 import formatDate from '../assets/js/publicTime'
+import axios from 'axios'
+import discoverinfo  from '../views/discoverinfo/index'
 import { mapState, mapActions } from 'vuex'
 import BScroll from 'better-scroll'
 export default {
   namespaced: true,
   name: 'discoverShow',
+  components:{
+    discoverinfo
+  },
   data() {
     return {
       curPage: 1
@@ -67,13 +72,22 @@ export default {
     }
   },
   methods: {
-    ...mapActions('discover', ['getDiscoverShowList'])
+    ...mapActions('discover', ['getDiscoverShowList']),
+      selectItem(show){
+      //  console.log(show.id);
+      //  var show = show.id;
+      // //  console.log(show)
+      //  this.$emit('select',show);
+      this.$router.push({
+        path:`/discoverinfo/${show.id}`,
+      })
+      }
   },
   mounted() {
     let bs = new BScroll(this.$refs.box, {
       probeType: 3,
-      click: true,
-      pullUpLoad: true
+      pullUpLoad: true,
+      click: true
     })
     //  console.log(bs)
     bs.on('scroll', data => {

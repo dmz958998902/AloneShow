@@ -1,9 +1,9 @@
 <!-- 二级路由 发现页面 -->
 <template>
   <div class="discover">
-    <div class="discover-top">
-      <div class="discover-cityname">
-        <span class="iconfont">全国&#xe626;</span>
+    <div class="discover-top" style="z-index:0;position:absolute">
+      <div class="discover-cityname" @click="changeAdress">
+        <span class="iconfont">{{ na }}&#xe626;</span>
       </div>
       <div class="discover-nav">
         <ul>
@@ -14,15 +14,18 @@
           <span></span>
         </div>
       </div>
-
+      <router-link to="/search">
       <a id="dis-sea" class="iconfont">&#xe618;</a>
+      </router-link>
     </div>
+    <discoverAdress v-if="showAdress" @changeCity="fv($event)"></discoverAdress>
     <component :is="currentView"></component>
   </div>
 </template>
 <script>
 import discoverrec from '../../components/discoverRec'
 import discoverrfol from '../../components/discoverFol'
+import discoverAdress from '../../components/discoverAdress'
 export default {
   name: 'discover',
   data() {
@@ -30,17 +33,31 @@ export default {
       discoverrec: 'discoverrec',
       discoverrfol: 'discoverrfol',
       currentView: 'discoverrec',
-      isClick: true
+      isClick: true,
+      showAdress:false,
+      na:'全国'
     }
+  },
+  watch: {
+     na(){
+         this.showAdress=false
+     }
   },
   methods: {
     tabChange(tabItem) {
       this.currentView = tabItem
+    },
+    changeAdress(){
+      this.showAdress=!this.showAdress
+    },
+    fv(e){
+      this.na = e
     }
   },
   components: {
     discoverrec,
-    discoverrfol
+    discoverrfol,
+    discoverAdress
   }
 }
 </script>

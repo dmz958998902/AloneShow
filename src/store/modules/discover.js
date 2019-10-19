@@ -13,7 +13,7 @@ export default {
     discoverShowList: [], //演出数据列表
     discoverMovList: [], // 电影页面
     discoverSpotList: [], // 景点页面
-    discoverLoveList: [] // 爱的页面
+    discoverLoveList: [], // 爱的页面
   },
   getters: {
 
