@@ -15,7 +15,10 @@ import {
   Area,
   Tab,
   Tabs,
-  CountDown
+  CountDown,
+  IndexBar,
+  IndexAnchor,
+  Cell
 } from 'vant'
 Vue.use(NavBar)
   .use(Search)
@@ -26,9 +29,9 @@ Vue.use(NavBar)
   .use(DropdownItem)
   .use(AddressEdit)
   .use(Area)
-  .use(Tab)
-  .use(Tabs)
-  .use(CountDown)
+  .use(IndexBar)
+  .use(IndexAnchor)
+  .use(Cell)
 
 Vue.config.productionTip = false
 

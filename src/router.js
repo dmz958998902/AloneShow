@@ -23,7 +23,7 @@ import EdirAddress from './views/edit_address/index.vue'
 import AddAddress from './views/add_address/index.vue'
 
 import ActivityDetail from './views/activity/activityDetail.vue'
-
+// 引入三级路由
 Vue.use(Router)
 
 const router = new Router({

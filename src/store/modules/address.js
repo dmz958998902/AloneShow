@@ -7,7 +7,7 @@ export default {
   },
   getters: {},
   mutations: {
-    fn1 (state, arr) {
+    fn1(state, arr) {
       // 拿到全部数据
       let array1 = arr
       state.areaList = {
@@ -30,7 +30,7 @@ export default {
     }
   },
   actions: {
-    getCities ({ commit }, payload) {
+    getCities({ commit }, payload) {
       axios
         .get(
           'https://api.mydeershow.com/mobile/app/city/citylist?source=mobile&cityName=%E5%85%A8%E5%9B%BD&citySituationName=%E5%85%A8%E5%9B%BD&encrypt=amhDRDE1NzExMjIyNDc3OTh3YmZrdg%3D%3D&citySituationId=-1&accessToken=8C17D38E71423CCAAB0C91FA29F545D3&vno=3.2.3'
