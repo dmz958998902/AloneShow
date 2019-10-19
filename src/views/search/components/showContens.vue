@@ -29,34 +29,81 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      pageNum: 1
+      pageNum: 1,
+      id: -1,
+      kindList: [
+        { type: 1, name: '独角秀应援' },
+        { type: 2, name: '热血Live' },
+        { type: 3, name: '疯狂舞台' },
+        { type: 4, name: '欢乐童年' }
+      ]
     }
   },
   props: {
     value: {
       type: String
+    },
+    title: {
+      type: String,
+      required: true,
+      default: '-1'
+    },
+    city: {
+      type: String,
+      required: true,
+      default: '全国'
     }
-    // title: {
-    //   type: String,
-    //   required: true
-    // },
-    // city: {
-    //   type: String,
-    //   required: true
-    // }
   },
   computed: {
-    ...mapState('search', ['searchList'])
+    ...mapState('search', ['searchList']),
+    ...mapState('city', ['cities'])
   },
   methods: {
     ...mapActions('search', ['getSearchList'])
   },
   watch: {
+    city() {
+      console.log(this.city)
+      this.cities.forEach(element => {
+        if (this.city === element.name) {
+          this.id = element.id
+          console.log(this.id)
+          this.getSearchList({
+            searchValue: this.value,
+            pageNum: this.pageNum,
+            cityName: this.city,
+            citySituationName: this.city,
+            citySituationId: this.id,
+            classifyType: this.title
+          })
+        }
+      })
+    },
+    title() {
+      // this.kindList.forEach(item => {
+      //   if (item.name == this.title) {
+      //     this.title = item.type
+      //   }
+      //   console.log(this.id)
+      // })
+      this.getSearchList({
+        searchValue: this.value,
+        pageNum: this.pageNum,
+        cityName: this.city,
+        citySituationName: this.city,
+        citySituationId: this.id,
+        classifyType: this.title
+      })
+    },
     value: {
       handler(newal) {
         this.getSearchList({
           searchValue: this.value,
-          pageNum: this.pageNum
+          pageNum: this.pageNum,
+          cityName: this.city,
+          citySituationName: this.citySituationName,
+          citySituationId: this.id,
+          classifyType: this.title
         })
       },
       immediate: true,

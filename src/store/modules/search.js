@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Toast } from 'vant'
 
 export default {
   namespaced: true,
@@ -31,28 +32,36 @@ export default {
     },
     // 得到搜索结果的信息
     getSearchList({ commit, state }, payload) {
-      axios
-        .get('https://api.mydeershow.com/mobile/app/activity/searchActivity', {
-          params: {
-            source: 'mobile',
-            cityName: '全国',
-            citySituationName: '全国',
-            encrypt: 'cThXODE1NzEyODMzNzQ0MTF3U2JmWQ==',
-            citySituationId: '-1',
-            vno: '3.2.3',
-            searchValue: payload.searchValue,
-            pageNum: payload.pageNum,
-            pageSize: '10',
-            activityState: '0',
-            classifyType: '-1'
-          }
-        })
-        .then(response => {
-          let list = response.data.data
-          commit('setSearchList', state.searchList.concat(list))
-          payload.callback && payload.callback()
-          console.log(list)
-        })
+      Toast.loading({
+        message: '加载中...'
+      }),
+        axios
+          .get(
+            'https://api.mydeershow.com/mobile/app/activity/searchActivity',
+            {
+              params: {
+                source: 'mobile',
+                cityName: payload.cityName,
+                citySituationName: payload.citySituationName,
+                encrypt: 'cThXODE1NzEyODMzNzQ0MTF3U2JmWQ==',
+                citySituationId: payload.citySituationId,
+                vno: '3.2.3',
+                searchValue: payload.searchValue,
+                pageNum: payload.pageNum,
+                pageSize: '10',
+                activityState: '0',
+                classifyType: this.classifyType
+              }
+            }
+          )
+          .then(response => {
+            console.log(payload)
+            let list = response.data.data
+            commit('setSearchList', state.searchList.concat(list))
+            payload.callback && payload.callback()
+            console.log(list)
+            Toast.clear()
+          })
     }
   }
 }

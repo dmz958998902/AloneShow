@@ -42,15 +42,15 @@
           <span>{{item}}</span>
         </li>
       </ul>
-      <p>
-        <img src="https://m.mydeershow.com/icon_search%20activity_delete.png" alt @click="del" />
-        <span @click="del">清空搜索记录</span>
+      <p @click.stop="del">
+        <img src="https://m.mydeershow.com/icon_search%20activity_delete.png" alt />
+        <span>清空搜索记录</span>
       </p>
     </div>
     <p v-if="noContent" class="noContent">搜索的内容不能是空</p>
     <div class="content">
       <!-- 搜索结果展示 -->
-      <ShowContens v-if="showContens" :value="value"></ShowContens>
+      <ShowContens v-if="showContens" :value="value" :title="title" :city="city"></ShowContens>
       <!-- 全部类别组件 -->
       <CityList v-if="onclick2" @changeCity="chgeC($event)"></CityList>
       <!-- 城市组件 -->
@@ -138,12 +138,11 @@ export default {
         let arr = JSON.parse(brr)
         this.recodes = arr.map(item => item.value)
       }
-      console.log(this.recodes)
     },
     // 清除搜索记录
     del() {
       window.localStorage.setItem('recodeInfo', '')
-      this.recodes = []
+      // this.recodes = []
       this.isShow = true
     },
     // 得到子组件传递过来的值，改变全部分类
@@ -164,11 +163,18 @@ export default {
       if (newVal === '') {
         this.showContens = false
       }
+    },
+    title() {
+      this.onclick1 = false
+    },
+    city() {
+      this.onclick2 = false
     }
   },
   created() {
     this.clickItem(), this.getSearchBar()
     this.getVal()
+    this.setVal()
   }
 }
 </script>
