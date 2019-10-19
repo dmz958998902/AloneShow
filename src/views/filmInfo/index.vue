@@ -30,7 +30,7 @@
   align-items: center;
   i {
     font-size: 20px;
-    margin-right: 140px;
+    margin-right: 120px;
     margin-left: 10px;
   }
   span {
@@ -50,7 +50,7 @@
   .filminfo {
     padding-left: 15px;
     h1 {
-      width: 215px;
+      width: 180px;
       color: #333333;
       font-size: 20px;
       line-height: 35px;
@@ -59,7 +59,7 @@
     .actors,
     .date,
     .fenshu {
-      width: 215px;
+      width: 180px;
       color: #333333;
       font-size: 12px;
       margin-top: 10px;

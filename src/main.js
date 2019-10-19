@@ -32,6 +32,9 @@ Vue.use(NavBar)
   .use(IndexBar)
   .use(IndexAnchor)
   .use(Cell)
+  .use(Tab)
+  .use(CountDown)
+  .use(Tabs)
 
 Vue.config.productionTip = false
 

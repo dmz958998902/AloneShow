@@ -4,18 +4,18 @@
     <div class="nav">
       <router-link to="/city">
         <div class="nav-left">
-          <span>深圳</span>
+          <span>{{cityZb}}</span>
           <img src="https://m.mydeershow.com/nav_btn_dropdown1.png" alt />
         </div>
       </router-link>
-      <router-link to="/search">
+      <router-link to="/search" style="flex:1;margin:0 10px 0 8px;">
         <div class="nav-center">
           <img src="https://m.mydeershow.com/nav_search_btn.png" alt />
           <p>输入关键词搜索</p>
         </div>
       </router-link>
       <div class="nav-footer">
-        <span>14</span>
+        <span>{{day}}</span>
       </div>
     </div>
     <div class="scroll" ref="scroll">
@@ -78,9 +78,9 @@
             <img src="https://m.mydeershow.com/home_notice_show_head_img.png" alt />
           </div>
           <div>
-            <van-swipe style="height: 20px;" :autoplay="1000" vertical :show-indicators="false">
+            <van-swipe style="height: 20px;" :autoplay="3000" vertical :show-indicators="false">
               <van-swipe-item
-                style="width:260px;height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#666666;"
+                style="width:200px;height:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#666666;"
                 v-for="item in headlineArr"
                 :key="item.id"
               >{{item.short_title}}</van-swipe-item>
@@ -142,7 +142,7 @@ import FilmList from '../../components/movie'
 import Upload from '../../components/upload'
 import BScroll from 'better-scroll'
 export default {
-  data() {
+  data () {
     return {
       arr: [],
       headlineArr: [],
@@ -153,7 +153,9 @@ export default {
       isFixed: false,
       fixedTop: 0,
       index: 1,
-      pageNum: ''
+      pageNum: '',
+      day: '',
+      cityZb: '全国'
     }
   },
   components: {
@@ -161,7 +163,7 @@ export default {
     Upload
   },
   methods: {
-    getType(type) {
+    getType (type) {
       this.types = type
       if (type === 'NowPlaying') {
         this.filmList = []
@@ -189,7 +191,7 @@ export default {
           })
       }
     },
-    getgirl(index) {
+    getgirl (index) {
       axios
         .get('https://api.mydeershow.com/mobile/app/aboutchat/aboutchatList', {
           params: {
@@ -227,9 +229,18 @@ export default {
           this.personalYR = this.personalYR.concat(result)
           this.pageNum = num
         })
+    },
+    getDate () {
+      let d = new Date()
+      let day = d.getDate()
+      this.day = day
+    },
+    getCity () {
+      let cityZb = window.localStorage.getItem('cityInfo')
+      this.cityZb = cityZb
     }
   },
-  mounted() {
+  mounted () {
     let bs = new BScroll(this.$refs.scroll, {
       probeType: 2,
       click: true,
@@ -253,7 +264,9 @@ export default {
       bs.finishPullUp()
     })
   },
-  created() {
+  created () {
+    this.getDate()
+    this.getCity()
     axios
       .get(
         'https://api.mydeershow.com/mobile/app/sowing/list?source=mobile&cityName=&citySituationName=%E6%B7%B1%E5%9C%B3&encrypt=aWxBWjE1NzExMjA4OTUxOTRSRnp6Rg%3D%3D&citySituationId=47&vno=3.2.3&type=-1'
@@ -306,7 +319,7 @@ export default {
   }
   .nav-center {
     display: flex;
-    width: 259px;
+    flex: 1;
     height: 28px;
     margin-top: 7px;
     align-items: center;

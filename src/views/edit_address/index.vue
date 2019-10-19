@@ -24,7 +24,7 @@ import address_nav from '../../components/address_nav'
 import axios from 'axios'
 import { mapActions, mapState } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       isDefault: false,
       searchResult: [],
@@ -45,7 +45,7 @@ export default {
   methods: {
     ...mapActions('address', ['getCities']),
     // 发送新增地址的请求
-    addAddress(data) {
+    addAddress (data) {
       axios
         .post(
           'https://api.mydeershow.com/mobile/app/address/create',
@@ -66,7 +66,7 @@ export default {
             default: this.isDefault
           },
           {
-            transformRequest(data) {
+            transformRequest (data) {
               let arr = []
               for (let key in data) {
                 arr.push(`${key}=${data[key]}`)
@@ -82,7 +82,7 @@ export default {
         })
     },
 
-    onSave(data) {
+    onSave (data) {
       // 点击保存的时候发送请求 把用户保存的地址存到数据库
       if (this.$route.query.name) {
         this.updateAddress(data)
@@ -92,22 +92,22 @@ export default {
     },
 
     // 点击设置为默认地址的时候触发的事件
-    changeDefault(value) {
+    changeDefault (value) {
       this.isDefault = value
     },
 
-    onleftSaves() {
+    onleftSaves () {
       this.$router.push('address_list')
     },
 
-    onSaves() {
+    onSaves () {
       alert('此功能不可用！')
     },
-    onDelete() {
+    onDelete () {
       // 点击删除->确定以后返回到页面
       this.$router.back()
     },
-    onChangeDetail(val) {
+    onChangeDetail (val) {
       if (val) {
         this.searchResult = [
           {
@@ -120,7 +120,7 @@ export default {
       }
     },
     // 获取url传递过来的参数 放到页面上面去
-    getcurUpdate() {
+    getcurUpdate () {
       this.curUpdate.name = this.$route.query.name
       this.curUpdate.tel = this.$route.query.mobile
       this.curUpdate.province = this.$route.query.province
@@ -132,7 +132,7 @@ export default {
       this.curUpdate.postalCode = this.$route.query.id
     }
   },
-  created() {
+  created () {
     this.getcurUpdate()
     this.getCities()
   }

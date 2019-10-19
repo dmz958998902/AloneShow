@@ -27,11 +27,11 @@ export default {
   methods: {
     ...mapActions('city', ['getCities']),
     // 点击每个城市触发一个自定义的事件
-    fn(type) {
+    fn (type) {
       this.$emit('changeCity', type)
     }
   },
-  created() {
+  created () {
     this.getCities()
   }
 }

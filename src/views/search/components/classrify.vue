@@ -41,17 +41,17 @@ export default {
       required: true
     }
   },
-  data() {
+  data () {
     return {
       curType: '全部分类'
     }
   },
   methods: {
-    changeType(type) {
+    changeType (type) {
       this.curType = type
       this.$emit('changeKind', type)
     }
   },
-  created() {}
+  created () {}
 }
 </script>

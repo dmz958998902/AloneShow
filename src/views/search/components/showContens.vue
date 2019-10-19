@@ -27,7 +27,7 @@ import { mapActions, mapState } from 'vuex'
 import BScroll from 'better-scroll'
 import axios from 'axios'
 export default {
-  data() {
+  data () {
     return {
       pageNum: 1,
       id: -1,
@@ -62,7 +62,7 @@ export default {
     ...mapActions('search', ['getSearchList'])
   },
   watch: {
-    city() {
+    city () {
       console.log(this.city)
       this.cities.forEach(element => {
         if (this.city === element.name) {
@@ -79,7 +79,7 @@ export default {
         }
       })
     },
-    title() {
+    title () {
       // this.kindList.forEach(item => {
       //   if (item.name == this.title) {
       //     this.title = item.type
@@ -96,7 +96,7 @@ export default {
       })
     },
     value: {
-      handler(newal) {
+      handler (newal) {
         this.getSearchList({
           searchValue: this.value,
           pageNum: this.pageNum,
@@ -110,8 +110,8 @@ export default {
       deep: true
     }
   },
-  created() {},
-  mounted() {
+  created () {},
+  mounted () {
     let scroll = new BScroll(this.$refs.box, {
       pullUpLoad: true, // 只有是true的时候pullingUp才在某个时机触发
       click: true,
@@ -123,7 +123,7 @@ export default {
       this.getSearchList({
         searchValue: this.value,
         pageNum: this.pageNum,
-        //当数据加载完后，重新加载
+        // 当数据加载完后，重新加载
         callback: () => {
           scroll.finishPullUp()
         }

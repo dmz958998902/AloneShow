@@ -70,7 +70,7 @@ export default {
     Classrify,
     ShowContens
   },
-  data() {
+  data () {
     return {
       title: '全部类别',
       city: '城市',
@@ -93,23 +93,23 @@ export default {
     ...mapActions('search', ['getSearchBar']),
     ...mapActions('search', ['getSearchList']),
     // 点击向左返回
-    goback() {
+    goback () {
       this.$router.back()
     },
-    clickItem() {
+    clickItem () {
       console.log(this.$refs.box)
     },
     // 全部分类和城市的显示和隐藏
-    fn1() {
+    fn1 () {
       this.onclick1 = !this.onclick1
       this.onclick2 = false
     },
-    fn2() {
+    fn2 () {
       this.onclick2 = !this.onclick2
       this.onclick1 = false
     },
     // 确定搜索时触发，设置搜索的值
-    setVal() {
+    setVal () {
       // 显示搜索内容结果
       // this.isShow = false
       // if (this.value == '') {
@@ -131,7 +131,7 @@ export default {
     },
 
     // 得到搜索的值,
-    getVal() {
+    getVal () {
       this.showRecode = true
       let brr = window.localStorage.getItem('recodeInfo')
       if (brr) {
@@ -140,23 +140,23 @@ export default {
       }
     },
     // 清除搜索记录
-    del() {
+    del () {
       window.localStorage.setItem('recodeInfo', '')
       // this.recodes = []
       this.isShow = true
     },
     // 得到子组件传递过来的值，改变全部分类
-    changeItem(e) {
+    changeItem (e) {
       this.title = e
       console.log(this.title)
     },
-    chgeC(e) {
+    chgeC (e) {
       this.city = e
     }
   },
   // 监听输入的值是否有变化，判断搜索记录是否显示
   watch: {
-    value(newVal) {
+    value (newVal) {
       this.showRecode = true
       this.getVal()
       this.isShow = true
@@ -164,14 +164,14 @@ export default {
         this.showContens = false
       }
     },
-    title() {
+    title () {
       this.onclick1 = false
     },
-    city() {
+    city () {
       this.onclick2 = false
     }
   },
-  created() {
+  created () {
     this.clickItem(), this.getSearchBar()
     this.getVal()
     this.setVal()

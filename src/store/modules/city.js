@@ -1,12 +1,12 @@
 import axios from 'axios'
-
+import { Toast } from 'vant'
 export default {
   namespaced: true,
   state: {
     cities: []
   },
   getters: {
-    cityList(state) {
+    cityList (state) {
       let res = []
       state.cities.forEach(item => {
         let py = item.sorts
@@ -25,19 +25,19 @@ export default {
         return a.py.charCodeAt() - b.py.charCodeAt()
       })
     },
-    cityPy(state, getters) {
+    cityPy (state, getters) {
       return getters.cityList.map(item => {
         return item.py
       })
     }
   },
   mutations: {
-    setCities(state, payload) {
+    setCities (state, payload) {
       state.cities = payload
     }
   },
   actions: {
-    getCities({ commit }, payload) {
+    getCities ({ commit }, payload) {
       Toast.loading({
         message: '加载中...'
       })

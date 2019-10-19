@@ -3,13 +3,13 @@
   <div class="page-city">
     <van-nav-bar title="选择城市">
       <template #left>
-        <i class="iconfont icon-xiangzuo"></i>
+        <i class="iconfont icon-xiangzuo" @click="goBack"></i>
       </template>
     </van-nav-bar>
     <!-- 城市列表选择 -->
-    <div class="city-list">
+    <div class="city-list" ref="box">
       <div class="city-item">
-        <p class="orientCity">
+        <p class="orientCity" :id="prePy[0]">
           <span></span>
           定位城市
         </p>
@@ -20,7 +20,7 @@
             <li v-for="city in cityArr" :key="city" @click="fn(city)">{{city}}</li>
           </ul>
         </div>
-        <div class="city-select" v-for="city in cityList" :key="city.py">
+        <div class="city-select" v-for="city in cityList" :key="city.py" :id="city.py">
           <p class="cityPy">{{city.py}}</p>
           <ul>
             <li
@@ -31,12 +31,25 @@
           </ul>
         </div>
       </div>
-      <!-- <div class="city-bar">
+      <div class="city-bar">
         <ul>
-          <li v-for="py in 10" :key="py">{{py}}</li>
+          <li
+            v-for="item in prePy"
+            :key="item"
+            @click="location(item)"
+            :class="{'active':item===curPy}"
+          >{{item}}</li>
+          <li
+            v-for="city in cityList"
+            :key="city.py"
+            @click="location(city.py)"
+            :class="{'active':city.py===curPy}"
+          >{{city.py}}</li>
         </ul>
-      </div>-->
+      </div>
     </div>
+    <!-- 缓冲提示 -->
+    <div class="buffer" v-if="curBu">{{curBu}}</div>
   </div>
 </template>
 <style lang='scss'>
@@ -56,9 +69,11 @@
     flex: 1;
     overflow-y: auto;
     font-size: 14px;
-    display: flex;
     width: 100%;
+    position: relative;
+    color: #666666;
     .city-item {
+      flex: 1;
       p {
         height: 45px;
         line-height: 45px;
@@ -74,11 +89,12 @@
         height: 225px;
         ul {
           display: flex;
+          padding-right: 40px;
           li {
+            text-align: center;
             height: 45px;
-            padding: 0 15px;
+            width: 33%;
             line-height: 45px;
-            width: 112px;
           }
         }
       }
@@ -96,13 +112,48 @@
         }
       }
     }
+    .city-bar {
+      width: 40px;
+      position: fixed;
+      height: 100%;
+      right: 0;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      ul {
+        li {
+          width: 40px;
+          text-align: center;
+          height: 20px;
+          &.active {
+            color: #fe104c;
+          }
+        }
+      }
+    }
+  }
+  .buffer {
+    width: 80px;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    text-align: center;
+    line-height: 80px;
+    color: white;
+    transition: all 0.3s;
+    font-size: 16px;
   }
 }
 </style>
 <script>
 import { mapActions, mapState, mapGetters } from 'vuex'
 export default {
-  data() {
+  data () {
     return {
       hotCity: [
         ['上海', '广州', '北京'],
@@ -110,20 +161,22 @@ export default {
         ['天津', '杭州', '厦门'],
         ['长沙', '深圳', '重庆'],
         ['南京', '武汉', '西安']
-      ]
+      ],
+      curPy: '定',
+      curBu: '',
+      prePy: ['定', '热']
     }
   },
   computed: {
     ...mapState('city', ['cities']),
-    ...mapGetters('city', ['cityList']),
-    ...mapGetters('city', ['cityPy'])
+    ...mapGetters('city', ['cityList'])
   },
   methods: {
     ...mapActions('city', ['getCities']),
-    goBack() {
+    goBack () {
       this.$router.back()
     },
-    location(curPy) {
+    location (curPy) {
       this.curPy = curPy
       this.curBu = curPy
       setTimeout(() => {
@@ -134,12 +187,12 @@ export default {
       let top = pyId.offsetTop
       cityList.scrollTop = top
     },
-    fn(city) {
+    fn (city) {
       this.$router.push('/home')
       window.localStorage.setItem('cityInfo', city)
     }
   },
-  created() {
+  created () {
     this.getCities()
   }
 }
