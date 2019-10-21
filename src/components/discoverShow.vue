@@ -2,44 +2,44 @@
   <div class="Show" ref="box">
     <div>
       <ul>
-        <li v-for="(show,index) in discoverShowList" :key="index">
-          <router-link :to="`/discoverinfo/${ show.id }`">
-            <div class="content_item">
-              <div class="dis_userInfo">
-                <div class="dis_userCon">
-                  <a href="#">
-                    <div class="dis_userimg">
-                      <img :src="show.headimgurl" />
-                    </div>
-                  </a>
-                  <div class="dis_username">{{ show.nickname }}</div>
+        <li v-for="(show,index) in discoverShowList" :key="index" @click="selectItem(show)">
+          <!-- <router-link :to="`/discoverinfo/${ show.id }`"> -->
+          <div class="content_item">
+            <div class="dis_userInfo">
+              <div class="dis_userCon">
+                <a href="#">
+                  <div class="dis_userimg">
+                    <img :src="show.headimgurl" />
+                  </div>
+                </a>
+                <div class="dis_username">{{ show.nickname }}</div>
+              </div>
+            </div>
+            <div class="ids_article">
+              <div style="position:relative">
+                <div
+                  class="article_img"
+                  data-src="#"
+                  :style="`background-image: url(${show.thumb});`"
+                ></div>
+                <div class="img_shadow">
+                  <div class="img_shadow_zzc"></div>
+                  <div class="img_shadow_con">
+                    <span>
+                      <div>{{show.create_time | formatDate}}</div>
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div class="ids_article">
-                <div style="position:relative">
-                  <div
-                    class="article_img"
-                    data-src="#"
-                    :style="`background-image: url(${show.thumb});`"
-                  ></div>
-                  <div class="img_shadow">
-                    <div class="img_shadow_zzc"></div>
-                    <div class="img_shadow_con">
-                      <span>
-                        <div>{{show.create_time | formatDate}}</div>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="article_text">
-                  <div class="article_bot">
-                    <span>REPO</span>
-                    {{ show.name }}
-                  </div>
+              <div class="article_text">
+                <div class="article_bot">
+                  <span>REPO</span>
+                  {{ show.name }}
                 </div>
               </div>
             </div>
-          </router-link>
+          </div>
+          <!-- </router-link> -->
         </li>
       </ul>
     </div>
@@ -47,12 +47,17 @@
 </template>
 <script>
 import formatDate from '../assets/js/publicTime'
+import axios from 'axios'
+import discoverinfo from '../views/discoverinfo/index'
 import { mapState, mapActions } from 'vuex'
 import BScroll from 'better-scroll'
 export default {
   namespaced: true,
   name: 'discoverShow',
-  data () {
+  components: {
+    discoverinfo
+  },
+  data() {
     return {
       curPage: 1
     }
@@ -61,19 +66,28 @@ export default {
     ...mapState('discover', ['discoverShowList'])
   },
   filters: {
-    formatDate (time) {
+    formatDate(time) {
       var date = new Date(time)
       return formatDate(date, 'yyyy-MM-dd hh:mm')
     }
   },
   methods: {
-    ...mapActions('discover', ['getDiscoverShowList'])
+    ...mapActions('discover', ['getDiscoverShowList']),
+    selectItem(show) {
+      //  console.log(show.id);
+      //  var show = show.id;
+      // //  console.log(show)
+      //  this.$emit('select',show);
+      this.$router.push({
+        path: `/discoverinfo/${show.id}`
+      })
+    }
   },
-  mounted () {
+  mounted() {
     let bs = new BScroll(this.$refs.box, {
       probeType: 3,
-      click: true,
-      pullUpLoad: true
+      pullUpLoad: true,
+      click: true
     })
     //  console.log(bs)
     bs.on('scroll', data => {
@@ -100,7 +114,7 @@ export default {
       })
     })
   },
-  created () {
+  created() {
     this.getDiscoverShowList({
       pageNum: this.curPage
     })

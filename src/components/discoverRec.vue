@@ -37,7 +37,7 @@ import discoverSpot from './discoverSpot'
 import discoverLove from './discoverLove'
 export default {
   name: 'discoverRec',
-  data () {
+  data() {
     return {
       active: 0
     }

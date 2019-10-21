@@ -2,7 +2,7 @@
   <div class="com" ref="box">
     <div>
       <ul>
-        <li v-for="(dis,index) in discoverList" :key="index">
+        <li v-for="(dis,index) in discoverList" :key="index"  @click="selectItem(dis)">
           <div class="content_item">
             <div class="dis_userInfo">
               <div class="dis_userCon">
@@ -50,7 +50,7 @@ import BScroll from 'better-scroll'
 export default {
   namespaced: true,
   name: 'discoverCom',
-  data () {
+  data() {
     return {
       curPage: 1
     }
@@ -59,15 +59,20 @@ export default {
     ...mapState('discover', ['discoverList'])
   },
   filters: {
-    formatDate (time) {
+    formatDate(time) {
       var date = new Date(time)
       return formatDate(date, 'yyyy-MM-dd hh:mm')
     }
   },
   methods: {
-    ...mapActions('discover', ['getDiscoverList'])
+    ...mapActions('discover', ['getDiscoverList']),
+    selectItem(dis){
+      this.$router.push({
+        path:`/discoverinfo/${dis.id}`,
+      })
+      }
   },
-  mounted () {
+  mounted() {
     let bs = new BScroll(this.$refs.box, {
       probeType: 3,
       click: true,
@@ -98,7 +103,7 @@ export default {
       })
     })
   },
-  created () {
+  created() {
     this.getDiscoverList({
       pageNum: this.curPage
     })
